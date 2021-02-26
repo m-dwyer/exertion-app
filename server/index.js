@@ -1,12 +1,23 @@
-const { ApolloServer, gql } = require('apollo-server')
+const { ApolloServer, gql, UserInputError } = require('apollo-server')
+const mongoose = require('mongoose')
+const User = require('./models/User')
 
-const users = [
+require('dotenv').config()
+
+mongoose.connect(
+  process.env.MONGODB_URI,
   {
-    username: 'M Dee',
-    password: '1234',
-    id: 1
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: true,
+    useCreateIndex: true
   }
-]
+).then(() => {
+  console.log('connected to mongodb')
+})
+.catch((err) => {
+  console.log('error connecting to mongodb:', err.message)
+})
 
 const typeDefs = gql`
   type User {
@@ -15,14 +26,43 @@ const typeDefs = gql`
     id: ID!
   }
 
-  type Query {
-    allUsers : [User!]
+  type Token {
+    value: String!
   }
+
+  type Mutation {
+    createUser(
+      username: String!
+      password: String!
+    ) : User
+
+    login(
+      username: String!
+      password: String!
+    ): Token
+  }
+
+  type Query {
+    me: User
+  }
+
 `
 
 const resolvers = {
-  Query: {
-    allUsers: () => users
+  Mutation: {
+    createUser: (root, args) => {
+      const user = new User({ username: args.username, password: args.password })
+      return user.save()
+    },
+
+    login: async (root, args) => {
+      const user = await User.findOne({ username: args.username })
+      if (!user || user.password !== args.password) {
+        throw new UserInputError('Incorrect credentials')
+      }
+
+      return { value: 'some_jwt_tokeen' }
+    }
   }
 }
 
