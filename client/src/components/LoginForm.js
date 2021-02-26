@@ -1,17 +1,25 @@
 import React, { useState, useEffect } from 'react'
 
+import { ERROR } from './Notification'
+
 import { useMutation } from '@apollo/client'
 import { LOGIN_MUTATION } from '../queries'
 
-const LoginForm = () => {
+
+const LoginForm = ({ showError }) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
-  const [login, result] = useMutation(LOGIN_MUTATION)
+  const [login, result] = useMutation(LOGIN_MUTATION, {
+    onError: (error) => {
+      showError(ERROR, error.graphQLErrors[0].message)
+    }
+  })
 
   useEffect(() => {
     if (result.data) {
-      const token = result.data.login.value
+      console.log(result.data)
+      const token = result.data.loginUser.value
       localStorage.setItem('usertoken', token)
     }
   }, [result.data])
