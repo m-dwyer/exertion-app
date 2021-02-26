@@ -2,6 +2,8 @@ const { ApolloServer, gql, UserInputError } = require('apollo-server')
 const mongoose = require('mongoose')
 const User = require('./models/User')
 
+const bcrypt = require('bcrypt')
+
 require('dotenv').config()
 
 mongoose.connect(
@@ -36,7 +38,7 @@ const typeDefs = gql`
       password: String!
     ) : User
 
-    login(
+    loginUser(
       username: String!
       password: String!
     ): Token
@@ -50,18 +52,25 @@ const typeDefs = gql`
 
 const resolvers = {
   Mutation: {
-    createUser: (root, args) => {
-      const user = new User({ username: args.username, password: args.password })
+    createUser: async (root, args) => {
+      const passwordHash = await bcrypt.hash(args.password, 10)
+
+      const user = new User({ username: args.username, password: passwordHash })
       return user.save()
     },
 
-    login: async (root, args) => {
+    loginUser: async (root, args) => {
       const user = await User.findOne({ username: args.username })
-      if (!user || user.password !== args.password) {
+
+      const loginCorrect = user === null
+        ? false
+        : await bcrypt.compare(args.password, user.password)
+
+      if (!loginCorrect) {
         throw new UserInputError('Incorrect credentials')
       }
 
-      return { value: 'some_jwt_tokeen' }
+      return { value: 'some_jwt_token' }
     }
   }
 }
