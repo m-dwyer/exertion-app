@@ -16,7 +16,7 @@ const typeDefs = gql`
   }
 
   type Query {
-    allUsers : User
+    allUsers : [User!]
   }
 `
 
