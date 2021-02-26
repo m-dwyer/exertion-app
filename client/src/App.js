@@ -1,8 +1,10 @@
 import React from 'react'
 
-const App = () => (
-  <>
-    Webpack rendering React test..
-  </>
-)
+const App = () => {
+  return (
+    <div>
+      Endpoint: {SERVER_URL}
+    </div>
+  )
+}
 export default App
