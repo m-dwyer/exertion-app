@@ -1,9 +1,10 @@
 import React from 'react'
+import LoginForm from './components/LoginForm'
 
 const App = () => {
   return (
     <div>
-      Endpoint: {SERVER_URL}
+      <LoginForm />
     </div>
   )
 }
