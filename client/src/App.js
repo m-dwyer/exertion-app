@@ -14,6 +14,12 @@ const App = () => {
     }
   }, [])
 
+  const updateToken = (token) => {
+    setToken(token)
+    localStorage.setItem('usertoken', token)
+    console.log("done")
+  }
+
   const logout = () => {
     if (token) {
       localStorage.clear()
@@ -33,7 +39,7 @@ const App = () => {
   return (
     <div>
       <Notification type={notifyType} message={notifyMessage} />
-      {token == null && <LoginForm showError={showNotification} setToken={setToken} />}
+      {token == null && <LoginForm showError={showNotification} updateToken={updateToken} />}
       {token && <button onClick={() => logout()}>Logout</button>}
     </div>
   )
