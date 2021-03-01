@@ -6,7 +6,7 @@ import { useMutation } from '@apollo/client'
 import { LOGIN_MUTATION } from '../queries'
 
 
-const LoginForm = ({ showError }) => {
+const LoginForm = ({ showError, setToken }) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
@@ -18,9 +18,8 @@ const LoginForm = ({ showError }) => {
 
   useEffect(() => {
     if (result.data) {
-      console.log(result.data)
       const token = result.data.loginUser.value
-      localStorage.setItem('usertoken', token)
+      setToken(token)
     }
   }, [result.data])
 
