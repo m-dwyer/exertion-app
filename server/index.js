@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const User = require('./models/User')
 
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 
 require('dotenv').config()
 
@@ -70,7 +71,8 @@ const resolvers = {
         throw new UserInputError('Incorrect credentials')
       }
 
-      return { value: 'some_jwt_token' }
+      const token = jwt.sign({ user: user.username, id: user.id }, process.env.JWT_SECRET)
+      return { value: token }
     }
   }
 }
