@@ -22,7 +22,7 @@ const Notification = ({ type, message }) => {
   )
 }
 
-Notification.PropTypes = {
+Notification.propTypes = {
   type: PropTypes.oneOf([ERROR, INFO])
 }
 
