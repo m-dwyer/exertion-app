@@ -14,6 +14,13 @@ const App = () => {
     }
   }, [])
 
+  const logout = () => {
+    if (token) {
+      localStorage.clear()
+      setToken(null)
+    }
+  }
+
   const showNotification = (type, message) => {
     setNotifyType(type)
     setNotifyMessage(message)
@@ -27,6 +34,7 @@ const App = () => {
     <div>
       <Notification type={notifyType} message={notifyMessage} />
       {token == null && <LoginForm showError={showNotification} setToken={setToken} />}
+      {token && <button onClick={() => logout()}>Logout</button>}
     </div>
   )
 }
