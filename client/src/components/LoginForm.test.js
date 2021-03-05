@@ -5,6 +5,7 @@ import { MockedProvider } from '@apollo/client/testing'
 
 import LoginForm from './LoginForm'
 import { LOGIN_MUTATION } from '../queries'
+
 test('renders content', () => {
   const mocks = [
     {
@@ -13,7 +14,7 @@ test('renders content', () => {
       },
       result: {
         data: {
-          loginUser: { value: 'xyz' }
+          loginUser: { value: 'some_token' }
         }
       }
     }
@@ -28,4 +29,8 @@ test('renders content', () => {
   )
 
   expect(component.container).toHaveTextContent('username')
+  expect(component.container).toHaveTextContent('password')
+  expect(component.container.querySelector('input[name="username"]')).not.toBeNull()
+  expect(component.container.querySelector('input[name="password"][type="password"]')).not.toBeNull()
+  expect(component.container.querySelector('button[type="submit"]')).not.toBeNull()
 })
