@@ -23,7 +23,8 @@ const Notification = ({ type, message }) => {
 }
 
 Notification.propTypes = {
-  type: PropTypes.oneOf([ERROR, INFO])
+  type: PropTypes.oneOf([ERROR, INFO]),
+  message: PropTypes.string
 }
 
 export default Notification

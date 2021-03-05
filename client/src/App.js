@@ -17,7 +17,7 @@ const App = () => {
   const updateToken = (token) => {
     setToken(token)
     localStorage.setItem('usertoken', token)
-    console.log("done")
+    console.log('done')
   }
 
   const logout = () => {
