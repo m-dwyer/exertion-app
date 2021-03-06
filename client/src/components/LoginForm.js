@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
 
 import { ERROR } from './Notification'
 
@@ -53,5 +54,11 @@ const LoginForm = ({ showError, updateToken }) => {
     </>
   )
 }
+
+LoginForm.propTypes = {
+  showError: PropTypes.func.isRequired,
+  updateToken: PropTypes.func.isRequired
+}
+
 
 export default LoginForm

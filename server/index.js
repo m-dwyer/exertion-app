@@ -17,8 +17,7 @@ mongoose.connect(
   }
 ).then(() => {
   console.log('connected to mongodb')
-})
-.catch((err) => {
+}).catch((err) => {
   console.log('error connecting to mongodb:', err.message)
 })
 
