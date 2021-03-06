@@ -1,38 +1,35 @@
 import React from 'react'
 import '@testing-library/jest-dom'
-import { render, fireEvent } from '@testing-library/react'
+import { render, waitFor } from '@testing-library/react'
 
-import * as Apollo from '@apollo/client'
-
-import { runLogin } from '../../test/utils'
+import { MOCK_USERNAME, MOCK_PASSWORD, runLogin } from '../../test/utils'
 import LoginForm from './LoginForm'
+
+import { LOGIN_MUTATION } from '../queries'
+import { MockedProvider } from '@apollo/client/testing'
+import { GraphQLError } from 'graphql'
 
 describe('LoginForm', () => {
   let mockShowError, mockUpdateToken
   let component
-  let data = { loginUser: { value: 'some_token' } }
+  const apolloMock = {
+    request: {
+      query: LOGIN_MUTATION,
+      variables: { username: MOCK_USERNAME, password: MOCK_PASSWORD }
+    },
+    result: { data: { loginUser: { value: 'some-token' }}}
+  }
 
   beforeEach(() => {
     mockShowError = jest.fn()
     mockUpdateToken = jest.fn()
-
-    jest.spyOn(Apollo, 'useMutation').mockImplementation(() => {
-      return [
-        jest.fn(),
-        {
-          data
-        }
-      ]
-    })
-  })
-
-  afterEach(() => {
-    jest.clearAllMocks()
   })
 
   test('renders content', () => {
     component = render(
-      <LoginForm showError={mockShowError} updateToken={mockUpdateToken} />
+      <MockedProvider mocks={[apolloMock]}>
+        <LoginForm showError={mockShowError} updateToken={mockUpdateToken} />
+      </MockedProvider>
     )
     expect(component.container).toHaveTextContent('username')
     expect(component.container).toHaveTextContent('password')
@@ -42,39 +39,39 @@ describe('LoginForm', () => {
   })
 
   describe('Login', () => {
-    it('successfully logs in with valid credentials', () => {
+    it('successfully logs in with valid credentials', async () => {
       component = render(
-        <LoginForm showError={mockShowError} updateToken={mockUpdateToken} />
+        <MockedProvider mocks={[apolloMock]}>
+          <LoginForm showError={mockShowError} updateToken={mockUpdateToken} />
+        </MockedProvider>
       )
 
       runLogin(component.container)
+      await waitFor(() => new Promise((res) => setTimeout(res, 0)))
 
       expect(mockUpdateToken.mock.calls).toHaveLength(1)
-      expect(mockUpdateToken.mock.calls[0]).toEqual(['some_token'])
+      expect(mockUpdateToken.mock.calls[0]).toEqual(['some-token'])
     })
 
     it('fails to log in with invalid credentials', async() => {
-      jest.spyOn(Apollo, 'useMutation').mockImplementation((_query, options) => {
-        options.onError({
-          graphQLErrors: [{ message: 'Uh oh' }]
-        })
-        return [
-          jest.fn(),
-          {
-            error: 'error'
-          }
-        ]
-      })
+      const failedLoginMock = {
+        ...apolloMock,
+        result: {
+          errors: [new GraphQLError('Invalid credentials')]
+        }
+      }
 
       component = render(
-        <LoginForm showError={mockShowError} updateToken={mockUpdateToken} />
+        <MockedProvider mocks={[failedLoginMock]}>
+          <LoginForm showError={mockShowError} updateToken={mockUpdateToken} />
+        </MockedProvider>
       )
 
       runLogin(component.container)
+      await waitFor(() => new Promise((res) => setTimeout(res, 0)))
 
       expect(mockShowError.mock.calls.length).toBeGreaterThan(0)
-      expect(mockShowError).toHaveBeenLastCalledWith('ERROR', 'Uh oh')
+      expect(mockShowError).toHaveBeenLastCalledWith('ERROR', 'Invalid credentials')
     })
   })
 })
-
