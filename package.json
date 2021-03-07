@@ -2,5 +2,8 @@
   "devDependencies": {
     "lerna": "^4.0.0"
   },
-  "name": "exertion-app"
+  "name": "exertion-app",
+  "scripts": {
+    "lint": "lerna run lint --parallel"
+  }
 }
