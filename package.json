@@ -4,6 +4,7 @@
   },
   "name": "exertion-app",
   "scripts": {
-    "lint": "lerna run lint --parallel"
+    "lint": "lerna run lint --parallel",
+    "test": "lerna run test --parallel"
   }
 }
