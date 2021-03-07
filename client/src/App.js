@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import LoginForm from './components/LoginForm'
 import Notification from './components/Notification'
+import Layout from './components/layout'
 
 const App = () => {
   const [notifyType, setNotifyType] = useState(null)
@@ -37,11 +38,11 @@ const App = () => {
   }
 
   return (
-    <div>
+    <Layout>
       <Notification type={notifyType} message={notifyMessage} />
       {token == null && <LoginForm showError={showNotification} updateToken={updateToken} />}
       {token && <button onClick={() => logout()}>Logout</button>}
-    </div>
+    </Layout>
   )
 }
 export default App
