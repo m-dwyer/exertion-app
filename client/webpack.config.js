@@ -1,13 +1,14 @@
 const path = require('path')
 const webpack = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 require('dotenv').config()
 
 const config = {
   entry: './src/index.js',
   output: {
-    path: path.resolve(__dirname, 'build'),
-    filename: 'main.js'
+    path: path.resolve(__dirname, './dist'),
+    filename: 'main.bundle.js'
   },
   devServer: {
     contentBase: path.resolve(__dirname, 'build'),
@@ -29,6 +30,9 @@ const config = {
   plugins: [
     new webpack.DefinePlugin({
       SERVER_URL: JSON.stringify(process.env.SERVER_URL)
+    }),
+    new HtmlWebpackPlugin({
+      template: __dirname + '/public/index.html'
     })
   ]
 }
