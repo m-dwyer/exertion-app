@@ -6,13 +6,19 @@ import { css } from '@emotion/react'
 const Nav = ({ children }) => {
   return (
     <nav>
-      <ul>
+      <ul css={css`
+        display: flex;
+        padding: 0;
+        justify-content: flex-end;
+      `}>
         {
           children.map((c,i) => (
             <li
               key={i}
               css={css`
-                list-style-type: none
+                list-style-type: none;
+                padding: 0 30px;
+                margin: 0;
               `}
             >
               {c}
