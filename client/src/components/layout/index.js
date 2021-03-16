@@ -1,11 +1,20 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { css } from '@emotion/react'
+import { css, Global } from '@emotion/react'
 import Nav from './Nav'
 
 const Layout = ({ children }) => {
   return (
     <>
+      <Global
+        styles={css`
+            * {
+              margin: 0;
+              padding: 0;
+              box-sizing: border-box;
+            }
+        `}
+      />
       <header>
         <Nav css={css`
           & a {
