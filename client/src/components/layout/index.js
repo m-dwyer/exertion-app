@@ -13,12 +13,15 @@ const Layout = ({ children }) => {
               padding: 0;
               box-sizing: border-box;
             }
+
+            a {
+              text-decoration: none;
+            }
         `}
       />
       <header>
         <Nav css={css`
           & a {
-            text-decoration: none;
             color: black;
           }
         `}>
