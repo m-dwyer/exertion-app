@@ -1,10 +1,16 @@
 import PropTypes from 'prop-types'
-import React from 'react'
+import { React, useState } from 'react'
 import { css } from '@emotion/react'
 import HamburgerIcon from '../../assets/hamburger.svg'
 import CloseMenu from '../../assets/closemenu.svg'
 
 const Nav = ({ children, ...props }) => {
+  const [visible, setVisible] = useState(false)
+
+  const toggleMenu = () => {
+    setVisible(!visible)
+  }
+
   return (
     <div css={css`
       display: flex;
@@ -12,7 +18,11 @@ const Nav = ({ children, ...props }) => {
       padding: 1em;
     `}>
       <a href="#">exertion</a>
-      <HamburgerIcon />
+      <HamburgerIcon css={css`
+          display: ${visible ? 'none' : '' }
+        `}
+      onClick={toggleMenu}
+      />
       <nav css={css`
         background-color: grey;
         position: fixed;
@@ -21,13 +31,17 @@ const Nav = ({ children, ...props }) => {
         right: 0;
         top: 0;
         height: 100vh;
+        display: ${visible ? 'unset' : 'none'}
       `}>
-        <CloseMenu css={css`
-          position: fixed;
-          top: 0;
-          right: 0;
-          margin: 0.5em;
-        `}/>
+        <CloseMenu
+          css={css`
+            position: fixed;
+            top: 0;
+            right: 0;
+            margin: 0.5em;
+          `}
+          onClick={toggleMenu}
+        />
         <ul css={css`
           margin-top: 3em;
         `} {...props}>
