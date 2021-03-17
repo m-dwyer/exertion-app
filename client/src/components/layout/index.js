@@ -8,6 +8,8 @@ const Layout = ({ children }) => {
     <>
       <Global
         styles={css`
+            @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
             * {
               margin: 0;
               padding: 0;
@@ -16,6 +18,25 @@ const Layout = ({ children }) => {
 
             a {
               text-decoration: none;
+            }
+
+            ul {
+              padding: 0;
+            }
+
+            body {
+              background-color: #f2f2f2;
+              font-family: 'Montserrat', sans-serif;
+            }
+
+            section {
+              margin: 0 auto;
+              width: 100%;
+              height: 100vh;
+              padding: 5em;
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
             }
         `}
       />

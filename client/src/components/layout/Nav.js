@@ -16,8 +16,14 @@ const Nav = ({ children, ...props }) => {
       display: flex;
       justify-content: space-between;
       padding: 1em;
+      background-color: white;
     `}>
-      <a href="#">exertion</a>
+      <a href="#" css={css`
+        color: black;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+      `}>exertion</a>
       <HamburgerIcon css={css`
           visibility: ${visible ? 'hidden' : 'visible' }
         `}

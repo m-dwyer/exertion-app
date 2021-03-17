@@ -40,8 +40,16 @@ const App = () => {
   return (
     <Layout>
       <Notification type={notifyType} message={notifyMessage} />
-      {token == null && <LoginForm showError={showNotification} updateToken={updateToken} />}
-      {token && <button onClick={() => logout()}>Logout</button>}
+      {
+        token == null &&
+        <section>
+          <LoginForm showError={showNotification} updateToken={updateToken} />
+        </section>
+      }
+      {
+        token &&
+        <button onClick={() => logout()}>Logout</button>
+      }
     </Layout>
   )
 }
