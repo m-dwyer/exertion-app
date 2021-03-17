@@ -19,7 +19,7 @@ const Nav = ({ children, ...props }) => {
     `}>
       <a href="#">exertion</a>
       <HamburgerIcon css={css`
-          display: ${visible ? 'none' : '' }
+          visibility: ${visible ? 'hidden' : 'visible' }
         `}
       onClick={toggleMenu}
       />
