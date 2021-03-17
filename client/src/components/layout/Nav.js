@@ -51,8 +51,9 @@ const Nav = ({ children, ...props }) => {
                 key={i}
                 css={css`
                   list-style-type: none;
-                  padding: 0.5em 1em;
+                  padding: 1.5em 1em;
                   margin: 0;
+                  text-align: right;
                 `}
               >
                 {c}
