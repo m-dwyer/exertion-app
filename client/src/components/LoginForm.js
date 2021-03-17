@@ -36,7 +36,9 @@ const LoginForm = ({ showError, updateToken }) => {
       <form
         onSubmit={handleLogin}
         css={css`
-          width: 100%
+          width: 100%;
+          margin: 0 auto;
+          max-width: 600px;
       `}>
         <div>
           <label
@@ -86,8 +88,10 @@ const LoginForm = ({ showError, updateToken }) => {
           border: 2px solid white;
           color: white;
           padding: 0.75em 2.5em;
-          margin: 0.5em auto;
+          display: block;
+          margin: 1.25em auto;
           width: 100%;
+          max-width: 400px;
         `}
         >Login</button>
       </form>

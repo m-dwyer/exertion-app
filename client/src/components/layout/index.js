@@ -19,7 +19,7 @@ const Layout = ({ children }) => {
             a {
               text-decoration: none;
             }
-
+            
             ul {
               padding: 0;
             }
