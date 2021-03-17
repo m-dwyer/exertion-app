@@ -87,6 +87,7 @@ const LoginForm = ({ showError, updateToken }) => {
           color: white;
           padding: 0.75em 2.5em;
           margin: 0.5em auto;
+          width: 100%;
         `}
         >Login</button>
       </form>
