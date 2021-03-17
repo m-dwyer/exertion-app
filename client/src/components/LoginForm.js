@@ -33,7 +33,11 @@ const LoginForm = ({ showError, updateToken }) => {
 
   return (
     <>
-      <form onSubmit={handleLogin}>
+      <form
+        onSubmit={handleLogin}
+        css={css`
+          width: 100%
+      `}>
         <div>
           <label
             htmlFor="username"
@@ -50,6 +54,7 @@ const LoginForm = ({ showError, updateToken }) => {
               border-radius: 0.25em;
               border: 1px solid gray;
               padding: 0.8em;
+              width: 100%
             `}
           />
         </div>
@@ -71,6 +76,7 @@ const LoginForm = ({ showError, updateToken }) => {
               border-radius: 0.25em;
               border: 1px solid gray;
               padding: 0.8em;
+              width: 100%
           `}
           />
         </div>
