@@ -38,7 +38,7 @@ const LoginForm = ({ showError, updateToken }) => {
         css={css`
           width: 100%;
           margin: 0 auto;
-          max-width: 600px;
+          max-width: 400px;
       `}>
         <div>
           <label
