@@ -75,6 +75,9 @@ const Nav = ({ children, ...props }) => {
         />
         <ul css={css`
           margin-top: 3em;
+          li:hover {
+            font-weight: bold;
+          }
         `} {...props}>
           {
             children.map((c,i) => (
