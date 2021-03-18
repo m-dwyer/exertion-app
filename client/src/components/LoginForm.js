@@ -46,17 +46,19 @@ const LoginForm = ({ showError, updateToken }) => {
             css={css`
               display: block;
               font-size: 1.2em;
+              margin-bottom: 0.75em;
             `}
           >Username</label>
           <input
             type="text"
             name="username"
+            id="username"
             onChange={({ target }) => setUsername(target.value)}
             css={css`
               border-radius: 0.25em;
               border: 1px solid gray;
               padding: 0.8em;
-              width: 100%
+              width: 100%;
             `}
           />
         </div>
@@ -68,11 +70,13 @@ const LoginForm = ({ showError, updateToken }) => {
             css={css`
               display: block;
               font-size: 1.2em;
+              margin-bottom: 0.75em;
           `}
           >Password</label>
           <input
             type="password"
             name="password"
+            id="password"
             onChange={({ target }) => setPassword(target.value)}
             css={css`
               border-radius: 0.25em;
@@ -87,6 +91,8 @@ const LoginForm = ({ showError, updateToken }) => {
           border-radius: 5em;
           border: 2px solid white;
           color: white;
+          font-weight: bold;
+          font-size: 1.2em;
           padding: 0.75em 2.5em;
           display: block;
           margin: 1.25em auto;
