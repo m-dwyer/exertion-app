@@ -1,11 +1,13 @@
 import PropTypes from 'prop-types'
 import { React, useState } from 'react'
-import { css } from '@emotion/react'
+import { css, useTheme } from '@emotion/react'
 import HamburgerIcon from '../../assets/hamburger.svg'
 import CloseMenu from '../../assets/closemenu.svg'
 
 const Nav = ({ children, ...props }) => {
   const [visible, setVisible] = useState(false)
+
+  const theme = useTheme()
 
   const toggleMenu = () => {
     setVisible(!visible)
@@ -16,13 +18,14 @@ const Nav = ({ children, ...props }) => {
       display: flex;
       justify-content: space-between;
       padding: 1em;
-      background-color: white;
+      background-color: ${theme.colors.background2};
     `}>
       <a href="#" css={css`
         color: black;
         font-weight: bold;
         display: flex;
         align-items: center;
+        color: ${theme.colors.foreground1};
       `}>exertion</a>
       <HamburgerIcon css={css`
         visibility: ${visible ? 'hidden' : 'visible'};

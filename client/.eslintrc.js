@@ -45,5 +45,6 @@ module.exports = {
     'jest': {
       'version': 'latest'
     }
-  }
+  },
+  'ignorePatterns': ['/dist/*']
 }

@@ -1,9 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { css, Global } from '@emotion/react'
+import { css, Global, useTheme } from '@emotion/react'
 import Nav from './Nav'
 
-const Layout = ({ children }) => {
+// eslint-disable-next-line no-unused-vars
+const Layout = ({ children, ...props }) => {
+  const theme = useTheme()
+
   return (
     <>
       <Global
@@ -19,14 +22,15 @@ const Layout = ({ children }) => {
             a {
               text-decoration: none;
             }
-            
+
             ul {
               padding: 0;
             }
 
             body {
-              background-color: #f2f2f2;
+              background-color: ${theme.colors.background1};
               font-family: 'Montserrat', sans-serif;
+              color: ${theme.colors.foreground1};
             }
 
             section {
@@ -43,7 +47,7 @@ const Layout = ({ children }) => {
       <header>
         <Nav css={css`
           & a {
-            color: black;
+            color: ${theme.colors.foreground1};
           }
         `}>
           <a href="#">Login</a>

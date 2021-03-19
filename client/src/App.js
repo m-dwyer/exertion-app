@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react'
+import { ThemeProvider } from '@emotion/react'
+
 import LoginForm from './components/LoginForm'
 import Notification from './components/Notification'
 import Layout from './components/layout'
+import DefaultTheme from './themes/default'
 
 const App = () => {
   const [notifyType, setNotifyType] = useState(null)
@@ -38,19 +41,21 @@ const App = () => {
   }
 
   return (
-    <Layout>
-      <Notification type={notifyType} message={notifyMessage} />
-      {
-        token == null &&
-        <section>
-          <LoginForm showError={showNotification} updateToken={updateToken} />
-        </section>
-      }
-      {
-        token &&
-        <button onClick={() => logout()}>Logout</button>
-      }
-    </Layout>
+    <ThemeProvider theme={DefaultTheme}>
+      <Layout>
+        <Notification type={notifyType} message={notifyMessage} />
+        {
+          token == null &&
+          <section>
+            <LoginForm showError={showNotification} updateToken={updateToken} />
+          </section>
+        }
+        {
+          token &&
+          <button onClick={() => logout()}>Logout</button>
+        }
+      </Layout>
+    </ThemeProvider>
   )
 }
 export default App

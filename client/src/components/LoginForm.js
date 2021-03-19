@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { css } from '@emotion/react'
+import { css, useTheme } from '@emotion/react'
 
 import { ERROR } from './Notification'
 
@@ -11,6 +11,8 @@ import { LOGIN_MUTATION } from '../queries'
 const LoginForm = ({ showError, updateToken }) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+
+  const theme = useTheme()
 
   const [login, result] = useMutation(LOGIN_MUTATION, {
     onError: (error) => {
@@ -39,6 +41,9 @@ const LoginForm = ({ showError, updateToken }) => {
           width: 100%;
           margin: 0 auto;
           max-width: 400px;
+          background: ${theme.colors.secondaryBackground};
+          border-radius: 0.5em;
+          padding: 1.5em;
       `}>
         <div>
           <label
@@ -59,6 +64,8 @@ const LoginForm = ({ showError, updateToken }) => {
               border: 1px solid gray;
               padding: 0.8em;
               width: 100%;
+              background: ${theme.colors.background2};
+              color: ${theme.colors.foreground1};
             `}
           />
         </div>
@@ -82,14 +89,16 @@ const LoginForm = ({ showError, updateToken }) => {
               border-radius: 0.25em;
               border: 1px solid gray;
               padding: 0.8em;
-              width: 100%
+              width: 100%;
+              background: ${theme.colors.background2};
+              color: ${theme.colors.foreground2};
           `}
           />
         </div>
         <button type="submit" css={css`
-          background-color: blue;
+          background-color: ${theme.colors.foreground2};
           border-radius: 5em;
-          border: 2px solid white;
+          border: 2px solid ${theme.colors.highlight};
           color: white;
           font-weight: bold;
           font-size: 1.2em;
