@@ -1,6 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { css, Global, useTheme } from '@emotion/react'
+
+import { Link } from 'react-router-dom'
+
 import Nav from './Nav'
 
 // eslint-disable-next-line no-unused-vars
@@ -52,8 +55,8 @@ const Layout = ({ children, ...props }) => {
             }
           `}
         >
-          <a href="#">Login</a>
-          <a href="#">Signup</a>
+          <Link to="/login">Login</Link>
+          <Link to="/signup">Signup</Link>
         </Nav>
       </header>
       <main>{children}</main>

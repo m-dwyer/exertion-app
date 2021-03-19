@@ -1,7 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { ThemeProvider } from '@emotion/react'
 
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect
+} from 'react-router-dom'
+
 import LoginForm from './components/LoginForm'
+import SignupForm from './components/SignupForm'
 import Notification from './components/Notification'
 import Layout from './components/layout'
 import DefaultTheme from './themes/default'
@@ -42,15 +50,46 @@ const App = () => {
 
   return (
     <ThemeProvider theme={DefaultTheme}>
-      <Layout>
-        <Notification type={notifyType} message={notifyMessage} />
-        {token == null && (
-          <section>
-            <LoginForm showError={showNotification} updateToken={updateToken} />
-          </section>
-        )}
-        {token && <button onClick={() => logout()}>Logout</button>}
-      </Layout>
+      <Router>
+        <Layout>
+          <Notification type={notifyType} message={notifyMessage} />
+
+          <Switch>
+            <Route path="/login">
+              <section>
+                <LoginForm
+                  showError={showNotification}
+                  updateToken={updateToken}
+                />
+              </section>
+            </Route>
+
+            <Route path="/signup">
+              <section>
+                <SignupForm></SignupForm>
+              </section>
+            </Route>
+
+            <Route path="/">
+              {token == null ? (
+                <Redirect to="/login" />
+              ) : (
+                <Redirect to="/signup" />
+              )}
+            </Route>
+          </Switch>
+
+          {token == null && (
+            <section>
+              <LoginForm
+                showError={showNotification}
+                updateToken={updateToken}
+              />
+            </section>
+          )}
+          {token && <button onClick={() => logout()}>Logout</button>}
+        </Layout>
+      </Router>
     </ThemeProvider>
   )
 }
