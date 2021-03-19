@@ -41,7 +41,7 @@ const LoginForm = ({ showError, updateToken }) => {
           width: 100%;
           margin: 0 auto;
           max-width: 400px;
-          background: ${theme.colors.secondaryBackground};
+          background: ${theme.colors.background3};
           border-radius: 0.5em;
           padding: 1.5em;
       `}>
