@@ -78,15 +78,6 @@ const App = () => {
               )}
             </Route>
           </Switch>
-
-          {token == null && (
-            <section>
-              <LoginForm
-                showError={showNotification}
-                updateToken={updateToken}
-              />
-            </section>
-          )}
           {token && <button onClick={() => logout()}>Logout</button>}
         </Layout>
       </Router>
