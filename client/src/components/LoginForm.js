@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { css, useTheme } from '@emotion/react'
 
+import Form from './Form'
 import { ERROR } from './Notification'
 
 import { useMutation } from '@apollo/client'
@@ -34,17 +35,7 @@ const LoginForm = ({ showError, updateToken }) => {
 
   return (
     <>
-      <form
-        onSubmit={handleLogin}
-        css={css`
-          width: 100%;
-          margin: 0 auto;
-          max-width: 400px;
-          background: ${theme.colors.background3};
-          border-radius: 0.5em;
-          padding: 1.5em;
-        `}
-      >
+      <Form onSubmit={handleLogin}>
         <div>
           <label
             htmlFor="username"
@@ -119,7 +110,7 @@ const LoginForm = ({ showError, updateToken }) => {
         >
           Login
         </button>
-      </form>
+      </Form>
     </>
   )
 }
