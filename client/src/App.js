@@ -44,16 +44,12 @@ const App = () => {
     <ThemeProvider theme={DefaultTheme}>
       <Layout>
         <Notification type={notifyType} message={notifyMessage} />
-        {
-          token == null &&
+        {token == null && (
           <section>
             <LoginForm showError={showNotification} updateToken={updateToken} />
           </section>
-        }
-        {
-          token &&
-          <button onClick={() => logout()}>Logout</button>
-        }
+        )}
+        {token && <button onClick={() => logout()}>Logout</button>}
       </Layout>
     </ThemeProvider>
   )

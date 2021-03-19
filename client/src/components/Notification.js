@@ -15,11 +15,7 @@ const Notification = ({ type, message }) => {
     borderColour: type === ERROR ? 'red' : 'green'
   }
 
-  return (
-    <div style={{style}}>
-      {message}
-    </div>
-  )
+  return <div style={{ style }}>{message}</div>
 }
 
 Notification.propTypes = {

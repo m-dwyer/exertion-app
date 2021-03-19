@@ -26,7 +26,7 @@ const config = {
             '@babel/preset-env',
             [
               '@babel/preset-react',
-              { 'runtime': 'automatic', 'importSource': '@emotion/react' }
+              { runtime: 'automatic', importSource: '@emotion/react' }
             ]
           ]
         }

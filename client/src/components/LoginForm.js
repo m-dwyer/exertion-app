@@ -7,7 +7,6 @@ import { ERROR } from './Notification'
 import { useMutation } from '@apollo/client'
 import { LOGIN_MUTATION } from '../queries'
 
-
 const LoginForm = ({ showError, updateToken }) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -44,7 +43,8 @@ const LoginForm = ({ showError, updateToken }) => {
           background: ${theme.colors.background3};
           border-radius: 0.5em;
           padding: 1.5em;
-      `}>
+        `}
+      >
         <div>
           <label
             htmlFor="username"
@@ -53,7 +53,9 @@ const LoginForm = ({ showError, updateToken }) => {
               font-size: 1.2em;
               margin-bottom: 0.75em;
             `}
-          >Username</label>
+          >
+            Username
+          </label>
           <input
             type="text"
             name="username"
@@ -69,17 +71,21 @@ const LoginForm = ({ showError, updateToken }) => {
             `}
           />
         </div>
-        <div css={css`
-          margin-top: 1em;
-        `}>
+        <div
+          css={css`
+            margin-top: 1em;
+          `}
+        >
           <label
             htmlFor="password"
             css={css`
               display: block;
               font-size: 1.2em;
               margin-bottom: 0.75em;
-          `}
-          >Password</label>
+            `}
+          >
+            Password
+          </label>
           <input
             type="password"
             name="password"
@@ -92,23 +98,27 @@ const LoginForm = ({ showError, updateToken }) => {
               width: 100%;
               background: ${theme.colors.background2};
               color: ${theme.colors.foreground2};
-          `}
+            `}
           />
         </div>
-        <button type="submit" css={css`
-          background-color: ${theme.colors.foreground2};
-          border-radius: 5em;
-          border: 2px solid ${theme.colors.highlight};
-          color: white;
-          font-weight: bold;
-          font-size: 1.2em;
-          padding: 0.75em 2.5em;
-          display: block;
-          margin: 1.25em auto;
-          width: 100%;
-          max-width: 400px;
-        `}
-        >Login</button>
+        <button
+          type="submit"
+          css={css`
+            background-color: ${theme.colors.foreground2};
+            border-radius: 5em;
+            border: 2px solid ${theme.colors.highlight};
+            color: white;
+            font-weight: bold;
+            font-size: 1.2em;
+            padding: 0.75em 2.5em;
+            display: block;
+            margin: 1.25em auto;
+            width: 100%;
+            max-width: 400px;
+          `}
+        >
+          Login
+        </button>
       </form>
     </>
   )
@@ -118,6 +128,5 @@ LoginForm.propTypes = {
   showError: PropTypes.func.isRequired,
   updateToken: PropTypes.func.isRequired
 }
-
 
 export default LoginForm

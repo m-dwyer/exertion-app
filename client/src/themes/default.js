@@ -6,6 +6,6 @@ export default {
     background3: '#1780a1',
     foreground1: '#ffffff',
     foreground2: '#B7094C',
-    highlight: '#723C70',
+    highlight: '#723C70'
   }
 }
