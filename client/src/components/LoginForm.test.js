@@ -4,10 +4,12 @@ import { render, waitFor } from '@testing-library/react'
 
 import { MOCK_USERNAME, MOCK_PASSWORD, runLogin } from '../../test/utils'
 import LoginForm from './LoginForm'
+import DefaultTheme from '../themes/default'
 
 import { LOGIN_MUTATION } from '../queries'
 import { MockedProvider } from '@apollo/client/testing'
 import { GraphQLError } from 'graphql'
+import { ThemeProvider } from '@emotion/react'
 
 describe('LoginForm', () => {
   let mockShowError, mockUpdateToken
@@ -28,11 +30,13 @@ describe('LoginForm', () => {
   test('renders content', () => {
     component = render(
       <MockedProvider mocks={[apolloMock]}>
-        <LoginForm showError={mockShowError} updateToken={mockUpdateToken} />
+        <ThemeProvider theme={DefaultTheme}>
+          <LoginForm showError={mockShowError} updateToken={mockUpdateToken} />
+        </ThemeProvider>
       </MockedProvider>
     )
-    expect(component.container).toHaveTextContent('username')
-    expect(component.container).toHaveTextContent('password')
+    expect(component.container).toHaveTextContent('Username')
+    expect(component.container).toHaveTextContent('Password')
     expect(component.container.querySelector('input[name="username"]')).not.toBeNull()
     expect(component.container.querySelector('input[name="password"][type="password"]')).not.toBeNull()
     expect(component.container.querySelector('button[type="submit"]')).not.toBeNull()
@@ -42,7 +46,9 @@ describe('LoginForm', () => {
     it('successfully logs in with valid credentials', async () => {
       component = render(
         <MockedProvider mocks={[apolloMock]}>
-          <LoginForm showError={mockShowError} updateToken={mockUpdateToken} />
+          <ThemeProvider theme={DefaultTheme}>
+            <LoginForm showError={mockShowError} updateToken={mockUpdateToken} />
+          </ThemeProvider>
         </MockedProvider>
       )
 
@@ -63,7 +69,9 @@ describe('LoginForm', () => {
 
       component = render(
         <MockedProvider mocks={[failedLoginMock]}>
-          <LoginForm showError={mockShowError} updateToken={mockUpdateToken} />
+          <ThemeProvider theme={DefaultTheme}>
+            <LoginForm showError={mockShowError} updateToken={mockUpdateToken} />
+          </ThemeProvider>
         </MockedProvider>
       )
 
