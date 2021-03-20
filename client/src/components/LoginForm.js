@@ -17,7 +17,6 @@ const LoginForm = ({ showError, updateToken }) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
-  const theme = useTheme()
   const history = useHistory()
 
   const [login, result] = useMutation(LOGIN_MUTATION, {
