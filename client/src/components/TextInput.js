@@ -2,7 +2,7 @@ import React from 'react'
 import { css, useTheme } from '@emotion/react'
 import PropTypes from 'prop-types'
 
-const TextInput = ({ setValue, name, ...props }) => {
+const TextInput = ({ setValue, name, label = name, ...props }) => {
   const theme = useTheme()
 
   return (
@@ -20,7 +20,7 @@ const TextInput = ({ setValue, name, ...props }) => {
           text-transform: capitalize;
         `}
       >
-        {name}
+        {label}
       </label>
       <input
         name={name}

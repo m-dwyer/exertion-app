@@ -69,7 +69,7 @@ const App = () => {
 
             <Route path="/signup">
               <section>
-                <SignupForm></SignupForm>
+                <SignupForm showError={showNotification}></SignupForm>
               </section>
             </Route>
 
