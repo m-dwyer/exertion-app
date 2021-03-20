@@ -7,3 +7,9 @@ export const LOGIN_MUTATION = gql`
     }
   }
 `
+
+export const CREATE_USER_MUTATIONN = gql`
+  mutation createUser($username: String!, $password: String!) {
+    createUser(username: $username, password: $password)
+  }
+`

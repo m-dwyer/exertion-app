@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { css, useTheme } from '@emotion/react'
+import { useHistory } from 'react-router-dom'
 
 import Form from './Form'
 import { ERROR } from './Notification'
@@ -13,6 +14,7 @@ const LoginForm = ({ showError, updateToken }) => {
   const [password, setPassword] = useState('')
 
   const theme = useTheme()
+  const history = useHistory()
 
   const [login, result] = useMutation(LOGIN_MUTATION, {
     onError: (error) => {
@@ -24,6 +26,7 @@ const LoginForm = ({ showError, updateToken }) => {
     if (result.data) {
       const token = result.data.loginUser.value
       updateToken(token)
+      history.push('/')
     }
   }, [result.data])
 
