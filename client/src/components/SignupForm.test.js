@@ -8,6 +8,7 @@ import DefaultTheme from '../themes/default'
 
 import { CREATE_USER_MUTATION } from '../queries'
 import { MockedProvider } from '@apollo/client/testing'
+import { GraphQLError } from 'graphql'
 import { ThemeProvider } from '@emotion/react'
 
 // Need to mock outside describe block
@@ -87,7 +88,36 @@ describe('SignupForm', () => {
       expect(mockHistoryPush.mock.calls).toHaveLength(1)
     })
 
-    it('fails sign up with duplicate username', () => {})
+    it('fails sign up with duplicate username', async () => {
+      const failedSignupMock = {
+        ...apolloMock,
+        result: {
+          errors: [new GraphQLError('Username already taken')]
+        }
+      }
+
+      component = render(
+        <MockedProvider mocks={[failedSignupMock]}>
+          <ThemeProvider theme={DefaultTheme}>
+            <SignupForm showError={mockShowError} />
+          </ThemeProvider>
+        </MockedProvider>
+      )
+
+      runSignup(component.container, {
+        username: MOCK_USERNAME,
+        password: MOCK_PASSWORD,
+        verifyPassword: MOCK_PASSWORD
+      })
+
+      await waitFor(() => new Promise((res) => setTimeout(res, 0)))
+
+      expect(mockShowError.mock.calls.length).toBeGreaterThan(0)
+      expect(mockShowError).toHaveBeenLastCalledWith(
+        'ERROR',
+        'Username already taken'
+      )
+    })
 
     it('fails sign up with invalid verify password', () => {})
   })
