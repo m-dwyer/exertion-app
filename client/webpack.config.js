@@ -13,7 +13,8 @@ const config = {
   devServer: {
     contentBase: path.resolve(__dirname, 'build'),
     compress: true,
-    port: 3000
+    port: 3000,
+    historyApiFallback: true
   },
   devtool: 'source-map',
   module: {
@@ -26,7 +27,7 @@ const config = {
             '@babel/preset-env',
             [
               '@babel/preset-react',
-              { 'runtime': 'automatic', 'importSource': '@emotion/react' }
+              { runtime: 'automatic', importSource: '@emotion/react' }
             ]
           ]
         }
