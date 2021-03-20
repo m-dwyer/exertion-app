@@ -45,8 +45,13 @@ const SignupForm = ({ showError }) => {
   return (
     <Container>
       <Form onSubmit={handleSignup}>
-        <TextInput setValue={setUsername} name="username" />
-        <TextInput setValue={setPassword} name="password" type="password" />
+        <TextInput setValue={setUsername} name="username" label="Username" />
+        <TextInput
+          setValue={setPassword}
+          name="password"
+          label="Username"
+          type="password"
+        />
         <TextInput
           setValue={setVerifyPassword}
           name="verifyPassword"
