@@ -49,7 +49,7 @@ const SignupForm = ({ showError }) => {
         <TextInput
           setValue={setPassword}
           name="password"
-          label="Username"
+          label="Password"
           type="password"
         />
         <TextInput
