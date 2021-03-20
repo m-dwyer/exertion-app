@@ -11,6 +11,16 @@ import { MockedProvider } from '@apollo/client/testing'
 import { GraphQLError } from 'graphql'
 import { ThemeProvider } from '@emotion/react'
 
+// Need to mock outside describe block
+// See https://github.com/facebook/jest/issues/10494
+const mockHistoryPush = jest.fn()
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useHistory: () => ({
+    push: mockHistoryPush
+  })
+}))
+
 describe('LoginForm', () => {
   let mockShowError, mockUpdateToken
   let component
@@ -35,8 +45,9 @@ describe('LoginForm', () => {
         </ThemeProvider>
       </MockedProvider>
     )
-    expect(component.container).toHaveTextContent('Username')
-    expect(component.container).toHaveTextContent('Password')
+
+    expect(component.container).toHaveTextContent('username')
+    expect(component.container).toHaveTextContent('password')
     expect(
       component.container.querySelector('input[name="username"]')
     ).not.toBeNull()
@@ -68,6 +79,7 @@ describe('LoginForm', () => {
 
       expect(mockUpdateToken.mock.calls).toHaveLength(1)
       expect(mockUpdateToken.mock.calls[0]).toEqual(['some-token'])
+      expect(mockHistoryPush.mock.calls).toHaveLength(1)
     })
 
     it('fails to log in with invalid credentials', async () => {

@@ -5,6 +5,8 @@ import { useHistory } from 'react-router-dom'
 
 import Container from './Container'
 import Form from './Form'
+import TextInput from './TextInput'
+
 import { ERROR } from './Notification'
 
 import { useMutation } from '@apollo/client'
@@ -41,60 +43,13 @@ const LoginForm = ({ showError, updateToken }) => {
     <>
       <Container>
         <Form onSubmit={handleLogin}>
-          <label
-            htmlFor="username"
-            css={css`
-              display: block;
-              font-size: 1.2em;
-              margin-bottom: 0.75em;
-            `}
-          >
-            Username
-          </label>
-          <input
-            type="text"
-            name="username"
-            id="username"
-            onChange={({ target }) => setUsername(target.value)}
-            css={css`
-              border-radius: 0.25em;
-              border: 1px solid gray;
-              padding: 0.8em;
-              width: 100%;
-              background: ${theme.colors.background2};
-              color: ${theme.colors.foreground1};
-            `}
+          <TextInput name="username" id="username" setValue={setUsername} />
+          <TextInput
+            name="password"
+            id="password"
+            type="password"
+            setValue={setPassword}
           />
-          <div
-            css={css`
-              margin-top: 1em;
-            `}
-          >
-            <label
-              htmlFor="password"
-              css={css`
-                display: block;
-                font-size: 1.2em;
-                margin-bottom: 0.75em;
-              `}
-            >
-              Password
-            </label>
-            <input
-              type="password"
-              name="password"
-              id="password"
-              onChange={({ target }) => setPassword(target.value)}
-              css={css`
-                border-radius: 0.25em;
-                border: 1px solid gray;
-                padding: 0.8em;
-                width: 100%;
-                background: ${theme.colors.background2};
-                color: ${theme.colors.foreground2};
-              `}
-            />
-          </div>
           <button
             type="submit"
             css={css`
