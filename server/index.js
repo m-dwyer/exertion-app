@@ -7,19 +7,19 @@ const jwt = require('jsonwebtoken')
 
 require('dotenv').config()
 
-mongoose.connect(
-  process.env.MONGODB_URI,
-  {
+mongoose
+  .connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: true,
     useCreateIndex: true
-  }
-).then(() => {
-  console.log('connected to mongodb')
-}).catch((err) => {
-  console.log('error connecting to mongodb:', err.message)
-})
+  })
+  .then(() => {
+    console.log('connected to mongodb')
+  })
+  .catch((err) => {
+    console.log('error connecting to mongodb:', err.message)
+  })
 
 const typeDefs = gql`
   type User {
@@ -33,21 +33,14 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    createUser(
-      username: String!
-      password: String!
-    ) : User
+    createUser(username: String!, password: String!): User
 
-    loginUser(
-      username: String!
-      password: String!
-    ): Token
+    loginUser(username: String!, password: String!): Token
   }
 
   type Query {
     me: User
   }
-
 `
 
 const resolvers = {
@@ -55,22 +48,37 @@ const resolvers = {
     createUser: async (root, args) => {
       const passwordHash = await bcrypt.hash(args.password, 10)
 
-      const user = new User({ username: args.username, password: passwordHash })
-      return user.save()
+      const user = new User({
+        username: args.username,
+        password: passwordHash
+      })
+      try {
+        await user.save()
+      } catch (error) {
+        throw new UserInputError(error.message, {
+          invalidArgs: args
+        })
+      }
+
+      return user
     },
 
     loginUser: async (root, args) => {
       const user = await User.findOne({ username: args.username })
 
-      const loginCorrect = user === null
-        ? false
-        : await bcrypt.compare(args.password, user.password)
+      const loginCorrect =
+        user === null
+          ? false
+          : await bcrypt.compare(args.password, user.password)
 
       if (!loginCorrect) {
         throw new UserInputError('Incorrect credentials')
       }
 
-      const token = jwt.sign({ user: user.username, id: user.id }, process.env.JWT_SECRET)
+      const token = jwt.sign(
+        { user: user.username, id: user.id },
+        process.env.JWT_SECRET
+      )
       return { value: token }
     }
   }
