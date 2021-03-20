@@ -1,7 +1,6 @@
 import React from 'react'
 import '@testing-library/jest-dom'
-import { render } from '@testing-library/react'
-import { fireEvent, waitFor } from '@testing-library/react'
+import { render, waitFor } from '@testing-library/react'
 
 import { MOCK_USERNAME, MOCK_PASSWORD, runSignup } from '../../test/utils'
 import SignupForm from './SignupForm'
