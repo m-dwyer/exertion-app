@@ -34,7 +34,6 @@ const SignupForm = ({ showError }) => {
     event.preventDefault()
 
     if (verifyPassword !== password) {
-      console.log('uh oh')
       showError(ERROR, 'Passwords do not match')
       return
     }

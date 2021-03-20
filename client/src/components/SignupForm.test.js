@@ -119,6 +119,28 @@ describe('SignupForm', () => {
       )
     })
 
-    it('fails sign up with invalid verify password', () => {})
+    it('fails sign up with invalid verify password', async () => {
+      component = render(
+        <MockedProvider mocks={[apolloMock]}>
+          <ThemeProvider theme={DefaultTheme}>
+            <SignupForm showError={mockShowError} />
+          </ThemeProvider>
+        </MockedProvider>
+      )
+
+      runSignup(component.container, {
+        username: MOCK_USERNAME,
+        password: MOCK_PASSWORD,
+        verifyPassword: 'invalid'
+      })
+
+      await waitFor(() => new Promise((res) => setTimeout(res, 0)))
+
+      expect(mockShowError.mock.calls.length).toBeGreaterThan(0)
+      expect(mockShowError).toHaveBeenLastCalledWith(
+        'ERROR',
+        'Passwords do not match'
+      )
+    })
   })
 })
