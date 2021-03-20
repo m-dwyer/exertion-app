@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { css, useTheme } from '@emotion/react'
 import { useHistory } from 'react-router-dom'
 
+import Container from './Container'
 import Form from './Form'
 import { ERROR } from './Notification'
 
@@ -38,8 +39,8 @@ const LoginForm = ({ showError, updateToken }) => {
 
   return (
     <>
-      <Form onSubmit={handleLogin}>
-        <div>
+      <Container>
+        <Form onSubmit={handleLogin}>
           <label
             htmlFor="username"
             css={css`
@@ -64,56 +65,56 @@ const LoginForm = ({ showError, updateToken }) => {
               color: ${theme.colors.foreground1};
             `}
           />
-        </div>
-        <div
-          css={css`
-            margin-top: 1em;
-          `}
-        >
-          <label
-            htmlFor="password"
+          <div
             css={css`
-              display: block;
-              font-size: 1.2em;
-              margin-bottom: 0.75em;
+              margin-top: 1em;
             `}
           >
-            Password
-          </label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            onChange={({ target }) => setPassword(target.value)}
+            <label
+              htmlFor="password"
+              css={css`
+                display: block;
+                font-size: 1.2em;
+                margin-bottom: 0.75em;
+              `}
+            >
+              Password
+            </label>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              onChange={({ target }) => setPassword(target.value)}
+              css={css`
+                border-radius: 0.25em;
+                border: 1px solid gray;
+                padding: 0.8em;
+                width: 100%;
+                background: ${theme.colors.background2};
+                color: ${theme.colors.foreground2};
+              `}
+            />
+          </div>
+          <button
+            type="submit"
             css={css`
-              border-radius: 0.25em;
-              border: 1px solid gray;
-              padding: 0.8em;
+              background-color: ${theme.colors.foreground2};
+              border-radius: 5em;
+              border: 2px solid ${theme.colors.highlight};
+              color: white;
+              font-weight: bold;
+              font-size: 1.2em;
+              padding: 0.75em 2.5em;
+              display: block;
+              margin: 1.25em auto;
               width: 100%;
-              background: ${theme.colors.background2};
-              color: ${theme.colors.foreground2};
+              max-width: 400px;
             `}
-          />
-        </div>
-        <button
-          type="submit"
-          css={css`
-            background-color: ${theme.colors.foreground2};
-            border-radius: 5em;
-            border: 2px solid ${theme.colors.highlight};
-            color: white;
-            font-weight: bold;
-            font-size: 1.2em;
-            padding: 0.75em 2.5em;
-            display: block;
-            margin: 1.25em auto;
-            width: 100%;
-            max-width: 400px;
-          `}
-        >
-          Login
-        </button>
-      </Form>
+          >
+            Login
+          </button>
+        </Form>
+      </Container>
     </>
   )
 }

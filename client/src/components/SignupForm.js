@@ -1,4 +1,6 @@
 import React from 'react'
+
+import Container from './Container'
 import Form from './Form'
 
 const SignupForm = () => {
@@ -7,9 +9,9 @@ const SignupForm = () => {
   }
 
   return (
-    <>
+    <Container>
       <Form onSubmit={handleSignup}>Signup form goes here..</Form>
-    </>
+    </Container>
   )
 }
 
