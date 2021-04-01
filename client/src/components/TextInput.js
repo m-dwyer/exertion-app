@@ -1,10 +1,12 @@
 import React, { useContext } from 'react'
 import { css } from '@emotion/react'
 import PropTypes from 'prop-types'
-import { AppContext } from '../App'
+
+import { store } from '../store'
 
 const TextInput = ({ setValue, name, label = name, ...props }) => {
-  const { theme } = useContext(AppContext)
+  const { state } = useContext(store)
+  const { theme } = state
 
   return (
     <div

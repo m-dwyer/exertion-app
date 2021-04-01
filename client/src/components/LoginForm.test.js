@@ -2,10 +2,14 @@ import React from 'react'
 import '@testing-library/jest-dom'
 import { render, waitFor } from '@testing-library/react'
 
+import {
+  MockedStore,
+  MockedStateProvider
+} from '../../test/MockedStateProvider'
 import { MOCK_USERNAME, MOCK_PASSWORD, runLogin } from '../../test/utils'
 import LoginForm from './LoginForm'
 import DefaultTheme from '../themes/default'
-import { AppContext } from '../App'
+import { StateProvider } from '../store'
 
 import { LOGIN_MUTATION } from '../queries'
 import { MockedProvider } from '@apollo/client/testing'
@@ -19,6 +23,10 @@ jest.mock('react-router-dom', () => ({
   useHistory: () => ({
     push: mockHistoryPush
   })
+}))
+
+jest.mock('../store', () => ({
+  store: MockedStore
 }))
 
 describe('LoginForm', () => {
@@ -40,9 +48,9 @@ describe('LoginForm', () => {
   test('renders content', () => {
     component = render(
       <MockedProvider mocks={[apolloMock]}>
-        <AppContext.Provider value={{ theme: DefaultTheme }}>
+        <MockedStateProvider>
           <LoginForm showError={mockShowError} updateToken={mockUpdateToken} />
-        </AppContext.Provider>
+        </MockedStateProvider>
       </MockedProvider>
     )
 
@@ -65,12 +73,12 @@ describe('LoginForm', () => {
     it('successfully logs in with valid credentials', async () => {
       component = render(
         <MockedProvider mocks={[apolloMock]}>
-          <AppContext.Provider value={{ theme: DefaultTheme }}>
+          <MockedStateProvider>
             <LoginForm
               showError={mockShowError}
               updateToken={mockUpdateToken}
             />
-          </AppContext.Provider>
+          </MockedStateProvider>
         </MockedProvider>
       )
 
@@ -92,12 +100,12 @@ describe('LoginForm', () => {
 
       component = render(
         <MockedProvider mocks={[failedLoginMock]}>
-          <AppContext.Provider value={{ theme: DefaultTheme }}>
+          <MockedStateProvider>
             <LoginForm
               showError={mockShowError}
               updateToken={mockUpdateToken}
             />
-          </AppContext.Provider>
+          </MockedStateProvider>
         </MockedProvider>
       )
 

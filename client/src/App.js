@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createContext } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import {
   BrowserRouter as Router,
@@ -13,9 +13,6 @@ import LoginForm from './components/LoginForm'
 import SignupForm from './components/SignupForm'
 import Notification from './components/Notification'
 import Layout from './components/layout'
-import DefaultTheme from './themes/default'
-
-export const AppContext = createContext({})
 
 const App = () => {
   const [notifyType, setNotifyType] = useState(null)
@@ -53,37 +50,35 @@ const App = () => {
   }
 
   return (
-    <AppContext.Provider value={{ theme: DefaultTheme }}>
-      <Router>
-        <Layout>
-          <Notification type={notifyType} message={notifyMessage} />
+    <Router>
+      <Layout>
+        <Notification type={notifyType} message={notifyMessage} />
 
-          <Switch>
-            <Route path="/login">
-              <section>
-                <LoginForm
-                  showError={showNotification}
-                  updateToken={updateToken}
-                />
-              </section>
-            </Route>
+        <Switch>
+          <Route path="/login">
+            <section>
+              <LoginForm
+                showError={showNotification}
+                updateToken={updateToken}
+              />
+            </section>
+          </Route>
 
-            <Route path="/signup">
-              <section>
-                <SignupForm showError={showNotification}></SignupForm>
-              </section>
-            </Route>
+          <Route path="/signup">
+            <section>
+              <SignupForm showError={showNotification}></SignupForm>
+            </section>
+          </Route>
 
-            <Route path="/">
-              <Loading loading={loading}>
-                <section>{token ? <Home /> : <Redirect to="/login" />}</section>
-              </Loading>
-            </Route>
-          </Switch>
-          {token && <button onClick={() => logout()}>Logout</button>}
-        </Layout>
-      </Router>
-    </AppContext.Provider>
+          <Route path="/">
+            <Loading loading={loading}>
+              <section>{token ? <Home /> : <Redirect to="/login" />}</section>
+            </Loading>
+          </Route>
+        </Switch>
+        {token && <button onClick={() => logout()}>Logout</button>}
+      </Layout>
+    </Router>
   )
 }
 export default App

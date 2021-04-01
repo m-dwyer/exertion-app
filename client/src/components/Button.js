@@ -1,10 +1,12 @@
 import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 import { css } from '@emotion/react'
-import { AppContext } from '../App'
+
+import { store } from '../store'
 
 const Button = ({ children, ...props }) => {
-  const { theme } = useContext(AppContext)
+  const { state } = useContext(store)
+  const { theme } = state
 
   return (
     <button
