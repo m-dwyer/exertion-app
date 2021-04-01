@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react'
-import { ThemeProvider } from '@emotion/react'
+import React, { useState, useEffect, createContext } from 'react'
 
 import {
   BrowserRouter as Router,
@@ -15,6 +14,8 @@ import SignupForm from './components/SignupForm'
 import Notification from './components/Notification'
 import Layout from './components/layout'
 import DefaultTheme from './themes/default'
+
+export const AppContext = createContext({})
 
 const App = () => {
   const [notifyType, setNotifyType] = useState(null)
@@ -52,7 +53,7 @@ const App = () => {
   }
 
   return (
-    <ThemeProvider theme={DefaultTheme}>
+    <AppContext.Provider value={{ theme: DefaultTheme }}>
       <Router>
         <Layout>
           <Notification type={notifyType} message={notifyMessage} />
@@ -82,7 +83,7 @@ const App = () => {
           {token && <button onClick={() => logout()}>Logout</button>}
         </Layout>
       </Router>
-    </ThemeProvider>
+    </AppContext.Provider>
   )
 }
 export default App

@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
-import { css, useTheme } from '@emotion/react'
+import { css } from '@emotion/react'
+import { AppContext } from '../App'
 
 const Form = ({ children, ...props }) => {
-  const theme = useTheme()
+  const { theme } = useContext(AppContext)
   return (
     <form
       css={css`

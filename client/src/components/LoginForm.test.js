@@ -5,11 +5,11 @@ import { render, waitFor } from '@testing-library/react'
 import { MOCK_USERNAME, MOCK_PASSWORD, runLogin } from '../../test/utils'
 import LoginForm from './LoginForm'
 import DefaultTheme from '../themes/default'
+import { AppContext } from '../App'
 
 import { LOGIN_MUTATION } from '../queries'
 import { MockedProvider } from '@apollo/client/testing'
 import { GraphQLError } from 'graphql'
-import { ThemeProvider } from '@emotion/react'
 
 // Need to mock outside describe block
 // See https://github.com/facebook/jest/issues/10494
@@ -40,9 +40,9 @@ describe('LoginForm', () => {
   test('renders content', () => {
     component = render(
       <MockedProvider mocks={[apolloMock]}>
-        <ThemeProvider theme={DefaultTheme}>
+        <AppContext.Provider value={{ theme: DefaultTheme }}>
           <LoginForm showError={mockShowError} updateToken={mockUpdateToken} />
-        </ThemeProvider>
+        </AppContext.Provider>
       </MockedProvider>
     )
 
@@ -65,12 +65,12 @@ describe('LoginForm', () => {
     it('successfully logs in with valid credentials', async () => {
       component = render(
         <MockedProvider mocks={[apolloMock]}>
-          <ThemeProvider theme={DefaultTheme}>
+          <AppContext.Provider value={{ theme: DefaultTheme }}>
             <LoginForm
               showError={mockShowError}
               updateToken={mockUpdateToken}
             />
-          </ThemeProvider>
+          </AppContext.Provider>
         </MockedProvider>
       )
 
@@ -92,12 +92,12 @@ describe('LoginForm', () => {
 
       component = render(
         <MockedProvider mocks={[failedLoginMock]}>
-          <ThemeProvider theme={DefaultTheme}>
+          <AppContext.Provider value={{ theme: DefaultTheme }}>
             <LoginForm
               showError={mockShowError}
               updateToken={mockUpdateToken}
             />
-          </ThemeProvider>
+          </AppContext.Provider>
         </MockedProvider>
       )
 

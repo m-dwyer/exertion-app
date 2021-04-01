@@ -9,7 +9,7 @@ import DefaultTheme from '../themes/default'
 import { CREATE_USER_MUTATION } from '../queries'
 import { MockedProvider } from '@apollo/client/testing'
 import { GraphQLError } from 'graphql'
-import { ThemeProvider } from '@emotion/react'
+import { AppContext } from '../App'
 
 // Need to mock outside describe block
 // See https://github.com/facebook/jest/issues/10494
@@ -40,9 +40,9 @@ describe('SignupForm', () => {
   test('renders content', () => {
     component = render(
       <MockedProvider mocks={[apolloMock]}>
-        <ThemeProvider theme={DefaultTheme}>
+        <AppContext.Provider value={{ theme: DefaultTheme }}>
           <SignupForm showError={mockShowError} />
-        </ThemeProvider>
+        </AppContext.Provider>
       </MockedProvider>
     )
 
@@ -71,9 +71,9 @@ describe('SignupForm', () => {
     it('successfully signs up with valid credentials', async () => {
       component = render(
         <MockedProvider mocks={[apolloMock]}>
-          <ThemeProvider theme={DefaultTheme}>
+          <AppContext.Provider value={{ theme: DefaultTheme }}>
             <SignupForm showError={mockShowError} />
-          </ThemeProvider>
+          </AppContext.Provider>
         </MockedProvider>
       )
 
@@ -98,9 +98,9 @@ describe('SignupForm', () => {
 
       component = render(
         <MockedProvider mocks={[failedSignupMock]}>
-          <ThemeProvider theme={DefaultTheme}>
+          <AppContext.Provider value={{ theme: DefaultTheme }}>
             <SignupForm showError={mockShowError} />
-          </ThemeProvider>
+          </AppContext.Provider>
         </MockedProvider>
       )
 
@@ -122,9 +122,9 @@ describe('SignupForm', () => {
     it('fails sign up with invalid verify password', async () => {
       component = render(
         <MockedProvider mocks={[apolloMock]}>
-          <ThemeProvider theme={DefaultTheme}>
+          <AppContext.Provider value={{ theme: DefaultTheme }}>
             <SignupForm showError={mockShowError} />
-          </ThemeProvider>
+          </AppContext.Provider>
         </MockedProvider>
       )
 
