@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { css, useTheme } from '@emotion/react'
+import { css } from '@emotion/react'
 import { useHistory } from 'react-router-dom'
 
 import Container from './Container'
