@@ -1,13 +1,17 @@
 import PropTypes from 'prop-types'
-import { React, useState } from 'react'
-import { css, useTheme } from '@emotion/react'
+import { React, useState, useContext } from 'react'
+import { css } from '@emotion/react'
+
 import HamburgerIcon from '../../assets/hamburger.svg'
 import CloseMenu from '../../assets/closemenu.svg'
+
+import { store } from '../../store'
 
 const Nav = ({ children, ...props }) => {
   const [visible, setVisible] = useState(false)
 
-  const theme = useTheme()
+  const { state } = useContext(store)
+  const { theme } = state
 
   const toggleMenu = () => {
     setVisible(!visible)

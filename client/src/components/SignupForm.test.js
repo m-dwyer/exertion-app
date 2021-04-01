@@ -2,14 +2,16 @@ import React from 'react'
 import '@testing-library/jest-dom'
 import { render, waitFor } from '@testing-library/react'
 
+import {
+  MockedStore,
+  MockedStateProvider
+} from '../../test/MockedStateProvider'
 import { MOCK_USERNAME, MOCK_PASSWORD, runSignup } from '../../test/utils'
 import SignupForm from './SignupForm'
-import DefaultTheme from '../themes/default'
 
 import { CREATE_USER_MUTATION } from '../queries'
 import { MockedProvider } from '@apollo/client/testing'
 import { GraphQLError } from 'graphql'
-import { ThemeProvider } from '@emotion/react'
 
 // Need to mock outside describe block
 // See https://github.com/facebook/jest/issues/10494
@@ -19,6 +21,10 @@ jest.mock('react-router-dom', () => ({
   useHistory: () => ({
     push: mockHistoryPush
   })
+}))
+
+jest.mock('../store', () => ({
+  store: MockedStore
 }))
 
 describe('SignupForm', () => {
@@ -40,9 +46,9 @@ describe('SignupForm', () => {
   test('renders content', () => {
     component = render(
       <MockedProvider mocks={[apolloMock]}>
-        <ThemeProvider theme={DefaultTheme}>
+        <MockedStateProvider>
           <SignupForm showError={mockShowError} />
-        </ThemeProvider>
+        </MockedStateProvider>
       </MockedProvider>
     )
 
@@ -71,9 +77,9 @@ describe('SignupForm', () => {
     it('successfully signs up with valid credentials', async () => {
       component = render(
         <MockedProvider mocks={[apolloMock]}>
-          <ThemeProvider theme={DefaultTheme}>
+          <MockedStateProvider>
             <SignupForm showError={mockShowError} />
-          </ThemeProvider>
+          </MockedStateProvider>
         </MockedProvider>
       )
 
@@ -98,9 +104,9 @@ describe('SignupForm', () => {
 
       component = render(
         <MockedProvider mocks={[failedSignupMock]}>
-          <ThemeProvider theme={DefaultTheme}>
+          <MockedStateProvider>
             <SignupForm showError={mockShowError} />
-          </ThemeProvider>
+          </MockedStateProvider>
         </MockedProvider>
       )
 
@@ -122,9 +128,9 @@ describe('SignupForm', () => {
     it('fails sign up with invalid verify password', async () => {
       component = render(
         <MockedProvider mocks={[apolloMock]}>
-          <ThemeProvider theme={DefaultTheme}>
+          <MockedStateProvider>
             <SignupForm showError={mockShowError} />
-          </ThemeProvider>
+          </MockedStateProvider>
         </MockedProvider>
       )
 

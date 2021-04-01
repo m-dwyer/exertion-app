@@ -1,14 +1,15 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
-import { css, Global, useTheme } from '@emotion/react'
-
+import { css, Global } from '@emotion/react'
 import { Link } from 'react-router-dom'
 
 import Nav from './Nav'
+import { store } from '../../store'
 
 // eslint-disable-next-line no-unused-vars
-const Layout = ({ children, ...props }) => {
-  const theme = useTheme()
+const Layout = ({ children }) => {
+  const { state } = useContext(store)
+  const { theme } = state
 
   return (
     <>

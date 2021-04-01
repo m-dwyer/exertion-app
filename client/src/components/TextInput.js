@@ -1,9 +1,12 @@
-import React from 'react'
-import { css, useTheme } from '@emotion/react'
+import React, { useContext } from 'react'
+import { css } from '@emotion/react'
 import PropTypes from 'prop-types'
 
+import { store } from '../store'
+
 const TextInput = ({ setValue, name, label = name, ...props }) => {
-  const theme = useTheme()
+  const { state } = useContext(store)
+  const { theme } = state
 
   return (
     <div
@@ -41,6 +44,7 @@ const TextInput = ({ setValue, name, label = name, ...props }) => {
 
 TextInput.propTypes = {
   name: PropTypes.string,
+  label: PropTypes.string,
   type: PropTypes.string,
   setValue: PropTypes.func
 }

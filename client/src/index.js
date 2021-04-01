@@ -1,6 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
+import { StateProvider } from './store'
+import DefaultTheme from './themes/default'
 
 import {
   ApolloClient,
@@ -28,8 +30,10 @@ const client = new ApolloClient({
 })
 
 ReactDOM.render(
-  <ApolloProvider client={client}>
-    <App />
-  </ApolloProvider>,
+  <StateProvider initialState={{ theme: DefaultTheme }}>
+    <ApolloProvider client={client}>
+      <App />
+    </ApolloProvider>
+  </StateProvider>,
   document.getElementById('root')
 )
