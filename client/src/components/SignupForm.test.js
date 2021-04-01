@@ -8,7 +8,6 @@ import {
 } from '../../test/MockedStateProvider'
 import { MOCK_USERNAME, MOCK_PASSWORD, runSignup } from '../../test/utils'
 import SignupForm from './SignupForm'
-import DefaultTheme from '../themes/default'
 
 import { CREATE_USER_MUTATION } from '../queries'
 import { MockedProvider } from '@apollo/client/testing'
