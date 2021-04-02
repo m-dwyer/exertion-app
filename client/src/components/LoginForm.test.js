@@ -28,7 +28,7 @@ jest.mock('../store', () => ({
 }))
 
 describe('LoginForm', () => {
-  let mockShowError, mockUpdateToken
+  let mockedDispatch, mockUpdateToken
   let component
   const apolloMock = {
     request: {
@@ -39,15 +39,15 @@ describe('LoginForm', () => {
   }
 
   beforeEach(() => {
-    mockShowError = jest.fn()
+    mockedDispatch = jest.fn()
     mockUpdateToken = jest.fn()
   })
 
   test('renders content', () => {
     component = render(
       <MockedProvider mocks={[apolloMock]}>
-        <MockedStateProvider>
-          <LoginForm showError={mockShowError} updateToken={mockUpdateToken} />
+        <MockedStateProvider mockedDispatch={mockedDispatch}>
+          <LoginForm updateToken={mockUpdateToken} />
         </MockedStateProvider>
       </MockedProvider>
     )
@@ -71,11 +71,8 @@ describe('LoginForm', () => {
     it('successfully logs in with valid credentials', async () => {
       component = render(
         <MockedProvider mocks={[apolloMock]}>
-          <MockedStateProvider>
-            <LoginForm
-              showError={mockShowError}
-              updateToken={mockUpdateToken}
-            />
+          <MockedStateProvider mockedDispatch={mockedDispatch}>
+            <LoginForm updateToken={mockUpdateToken} />
           </MockedStateProvider>
         </MockedProvider>
       )
@@ -98,11 +95,8 @@ describe('LoginForm', () => {
 
       component = render(
         <MockedProvider mocks={[failedLoginMock]}>
-          <MockedStateProvider>
-            <LoginForm
-              showError={mockShowError}
-              updateToken={mockUpdateToken}
-            />
+          <MockedStateProvider mockedDispatch={mockedDispatch}>
+            <LoginForm updateToken={mockUpdateToken} />
           </MockedStateProvider>
         </MockedProvider>
       )
@@ -110,11 +104,14 @@ describe('LoginForm', () => {
       runLogin(component.container)
       await waitFor(() => new Promise((res) => setTimeout(res, 0)))
 
-      expect(mockShowError.mock.calls.length).toBeGreaterThan(0)
-      expect(mockShowError).toHaveBeenLastCalledWith(
-        'ERROR',
-        'Invalid credentials'
-      )
+      expect(mockedDispatch.mock.calls.length).toBeGreaterThan(0)
+      expect(mockedDispatch).toHaveBeenLastCalledWith({
+        type: 'SET_NOTIFICATION',
+        data: {
+          type: 'ERROR',
+          message: 'Invalid credentials'
+        }
+      })
     })
   })
 })
