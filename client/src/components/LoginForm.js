@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from 'react'
-import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
 
 import Form from './Form'
@@ -12,9 +11,9 @@ import { LOGIN_MUTATION } from '../queries'
 import Button from './Button'
 import { store } from '../store'
 
-import { setNotification } from '../reducer'
+import { setNotification, setToken } from '../reducer'
 
-const LoginForm = ({ updateToken }) => {
+const LoginForm = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
@@ -31,7 +30,7 @@ const LoginForm = ({ updateToken }) => {
   useEffect(() => {
     if (data) {
       const token = data.loginUser.value
-      updateToken(token)
+      dispatch(setToken(token))
       history.push('/')
     }
   }, [data])
@@ -58,8 +57,6 @@ const LoginForm = ({ updateToken }) => {
   )
 }
 
-LoginForm.propTypes = {
-  updateToken: PropTypes.func.isRequired
-}
+LoginForm.propTypes = {}
 
 export default LoginForm

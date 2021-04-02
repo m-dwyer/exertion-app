@@ -9,7 +9,7 @@ import { store } from '../../store'
 // eslint-disable-next-line no-unused-vars
 const Layout = ({ children }) => {
   const { state } = useContext(store)
-  const { theme } = state
+  const { theme, token } = state
 
   return (
     <>
@@ -56,8 +56,14 @@ const Layout = ({ children }) => {
             }
           `}
         >
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Signup</Link>
+          {token ? (
+            <Link to="/logout">Logout</Link>
+          ) : (
+            <>
+              <Link to="/login">Login</Link>
+              <Link to="/signup">Signup</Link>
+            </>
+          )}
         </Nav>
       </header>
       <main>

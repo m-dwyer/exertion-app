@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 
 import {
   BrowserRouter as Router,
@@ -11,35 +11,34 @@ import { css } from '@emotion/react'
 import Home from './components/Home'
 import Loading from './components/Loading'
 import LoginForm from './components/LoginForm'
+import Logout from './components/Logout'
 import SignupForm from './components/SignupForm'
 import Notification from './components/Notification'
 import Layout from './components/layout'
 import Container from './components/layout/Container'
 import Card from './components/layout/Card'
+import { store } from './store'
+import { setToken } from './reducer'
 
 const App = () => {
-  const [token, setToken] = useState(null)
   const [loading, setLoading] = useState(true)
+
+  const { state, dispatch } = useContext(store)
+  const { token } = state
 
   useEffect(() => {
     const token = localStorage.getItem('usertoken')
     if (token) {
-      setToken(token)
+      dispatch(setToken(token))
     }
     setLoading(false)
   }, [])
 
-  const updateToken = (token) => {
-    setToken(token)
-    localStorage.setItem('usertoken', token)
-  }
-
-  const logout = () => {
+  useEffect(() => {
     if (token) {
-      localStorage.clear()
-      setToken(null)
+      localStorage.setItem('usertoken', token)
     }
-  }
+  }, [token])
 
   return (
     <Router>
@@ -53,11 +52,15 @@ const App = () => {
           <Card>
             <Switch>
               <Route path="/login">
-                <LoginForm updateToken={updateToken} />
+                <LoginForm />
               </Route>
 
               <Route path="/signup">
                 <SignupForm></SignupForm>
+              </Route>
+
+              <Route path="/logout">
+                <Logout />
               </Route>
 
               <Route path="/">
@@ -66,7 +69,6 @@ const App = () => {
                 </Loading>
               </Route>
             </Switch>
-            {token && <button onClick={() => logout()}>Logout</button>}
           </Card>
         </Container>
       </Layout>

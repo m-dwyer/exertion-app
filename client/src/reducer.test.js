@@ -28,11 +28,43 @@ describe('reducer', () => {
   })
 
   it('unsets a notification', () => {
-    const newState = reducer(initialState, {
+    const initialStateWithNotification = {
+      ...initialState,
+      notification: { type: 'FOO', message: 'BAR' }
+    }
+    const newState = reducer(initialStateWithNotification, {
       type: 'UNSET_NOTIFICATION'
     })
 
     expect(newState).toEqual({ a: 1, b: 'xyz' })
+  })
+
+  it('sets a token', () => {
+    const newState = reducer(initialState, {
+      type: 'SET_TOKEN',
+      data: {
+        token: 'abcd1234'
+      }
+    })
+
+    expect(newState).toEqual({
+      a: 1,
+      b: 'xyz',
+      token: 'abcd1234'
+    })
+  })
+
+  it('unsets a token', () => {
+    const initialStateWithToken = { ...initialState, token: 'abcd1234' }
+    deepFreeze(initialStateWithToken)
+    const newState = reducer(initialStateWithToken, {
+      type: 'UNSET_TOKEN'
+    })
+
+    expect(newState).toEqual({
+      a: 1,
+      b: 'xyz'
+    })
   })
 
   it('throws an error on undefined action', () => {
