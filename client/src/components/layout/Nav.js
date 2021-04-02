@@ -53,7 +53,8 @@ const Nav = ({ children, ...props }) => {
       />
       <nav
         css={css`
-          background-color: gray;
+          background-color: black;
+          opacity: 0.8;
           position: fixed;
           z-index: 999;
           width: 40%;
@@ -85,6 +86,7 @@ const Nav = ({ children, ...props }) => {
             top: 0;
             right: 0;
             margin: 0.5em;
+            color: ${theme.colors.foreground1};
 
             @media (min-width: 480px) {
               display: none;
