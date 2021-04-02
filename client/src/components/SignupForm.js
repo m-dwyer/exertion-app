@@ -1,32 +1,36 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
 
-import Container from './Container'
 import Form from './Form'
 import Button from './Button'
 import TextInput from './TextInput'
 
-import { ERROR } from './Notification'
+import { ERROR, INFO } from './Notification'
 
 import { useMutation } from '@apollo/client'
 import { CREATE_USER_MUTATION } from '../queries'
+import { store } from '../store'
+import { setNotification } from '../reducer'
 
-const SignupForm = ({ showError }) => {
+const SignupForm = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [verifyPassword, setVerifyPassword] = useState('')
+
+  const { dispatch } = useContext(store)
 
   const history = useHistory()
 
   const [createUser, result] = useMutation(CREATE_USER_MUTATION, {
     onError: (error) => {
-      showError(ERROR, error.graphQLErrors[0].message)
+      dispatch(setNotification(ERROR, error.graphQLErrors[0].message))
     }
   })
 
   useEffect(() => {
     if (result.data) {
+      dispatch(setNotification(INFO, 'Account created! Please login'))
       history.push('/')
     }
   }, [result.data])
@@ -35,7 +39,7 @@ const SignupForm = ({ showError }) => {
     event.preventDefault()
 
     if (verifyPassword !== password) {
-      showError(ERROR, 'Passwords do not match')
+      dispatch(setNotification(ERROR, 'Passwords do not match'))
       return
     }
 
@@ -43,24 +47,22 @@ const SignupForm = ({ showError }) => {
   }
 
   return (
-    <Container>
-      <Form onSubmit={handleSignup}>
-        <TextInput setValue={setUsername} name="username" label="Username" />
-        <TextInput
-          setValue={setPassword}
-          name="password"
-          label="Password"
-          type="password"
-        />
-        <TextInput
-          setValue={setVerifyPassword}
-          name="verifyPassword"
-          label="Verify Password"
-          type="password"
-        />
-        <Button type="submit">Sign up!</Button>
-      </Form>
-    </Container>
+    <Form onSubmit={handleSignup}>
+      <TextInput setValue={setUsername} name="username" label="Username" />
+      <TextInput
+        setValue={setPassword}
+        name="password"
+        label="Password"
+        type="password"
+      />
+      <TextInput
+        setValue={setVerifyPassword}
+        name="verifyPassword"
+        label="Verify Password"
+        type="password"
+      />
+      <Button type="submit">Sign up!</Button>
+    </Form>
   )
 }
 

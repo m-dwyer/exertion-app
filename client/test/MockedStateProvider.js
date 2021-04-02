@@ -6,15 +6,16 @@ import DefaultTheme from '../src/themes/default'
 const MockedStore = createContext({})
 const { Provider } = MockedStore
 
-const MockedStateProvider = ({ children }) => {
+const MockedStateProvider = ({ children, mockedDispatch }) => {
   const state = { theme: DefaultTheme }
-  const mockedDispatch = jest.fn()
-
-  return <Provider value={{ state, mockedDispatch }}>{children}</Provider>
+  return (
+    <Provider value={{ state, dispatch: mockedDispatch }}>{children}</Provider>
+  )
 }
 
 MockedStateProvider.propTypes = {
-  children: PropTypes.any
+  children: PropTypes.any,
+  mockedDispatch: PropTypes.func
 }
 
 export { MockedStore, MockedStateProvider }

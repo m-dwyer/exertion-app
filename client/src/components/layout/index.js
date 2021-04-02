@@ -60,7 +60,15 @@ const Layout = ({ children }) => {
           <Link to="/signup">Signup</Link>
         </Nav>
       </header>
-      <main>{children}</main>
+      <main>
+        <div
+          css={css`
+            margin: 0 auto;
+          `}
+        >
+          {children}
+        </div>
+      </main>
       <footer></footer>
     </>
   )

@@ -2,9 +2,9 @@ import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 import { css } from '@emotion/react'
 
-import { store } from '../store'
+import { store } from '../../store'
 
-const Container = ({ children }) => {
+const Card = ({ children }) => {
   const { state } = useContext(store)
 
   const { theme } = state
@@ -25,8 +25,8 @@ const Container = ({ children }) => {
   )
 }
 
-Container.propTypes = {
+Card.propTypes = {
   children: PropTypes.any
 }
 
-export default Container
+export default Card

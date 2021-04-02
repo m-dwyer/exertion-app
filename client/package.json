@@ -22,6 +22,7 @@
     "@testing-library/react": "^11.2.5",
     "@types/jest": "^26.0.20",
     "babel-loader": "^8.2.2",
+    "deep-freeze": "^0.0.1",
     "dotenv": "^8.2.0",
     "eslint": "^7.21.0",
     "eslint-config-prettier": "^8.1.0",

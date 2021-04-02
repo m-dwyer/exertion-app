@@ -28,7 +28,7 @@ jest.mock('../store', () => ({
 }))
 
 describe('SignupForm', () => {
-  let mockShowError, component
+  let mockedDispatch, component
   const apolloMock = {
     request: {
       query: CREATE_USER_MUTATION,
@@ -40,14 +40,14 @@ describe('SignupForm', () => {
   }
 
   beforeEach(() => {
-    mockShowError = jest.fn()
+    mockedDispatch = jest.fn()
   })
 
   test('renders content', () => {
     component = render(
       <MockedProvider mocks={[apolloMock]}>
-        <MockedStateProvider>
-          <SignupForm showError={mockShowError} />
+        <MockedStateProvider mockedDispatch={mockedDispatch}>
+          <SignupForm />
         </MockedStateProvider>
       </MockedProvider>
     )
@@ -77,8 +77,8 @@ describe('SignupForm', () => {
     it('successfully signs up with valid credentials', async () => {
       component = render(
         <MockedProvider mocks={[apolloMock]}>
-          <MockedStateProvider>
-            <SignupForm showError={mockShowError} />
+          <MockedStateProvider mockedDispatch={mockedDispatch}>
+            <SignupForm />
           </MockedStateProvider>
         </MockedProvider>
       )
@@ -104,8 +104,8 @@ describe('SignupForm', () => {
 
       component = render(
         <MockedProvider mocks={[failedSignupMock]}>
-          <MockedStateProvider>
-            <SignupForm showError={mockShowError} />
+          <MockedStateProvider mockedDispatch={mockedDispatch}>
+            <SignupForm />
           </MockedStateProvider>
         </MockedProvider>
       )
@@ -118,18 +118,21 @@ describe('SignupForm', () => {
 
       await waitFor(() => new Promise((res) => setTimeout(res, 0)))
 
-      expect(mockShowError.mock.calls.length).toBeGreaterThan(0)
-      expect(mockShowError).toHaveBeenLastCalledWith(
-        'ERROR',
-        'Username already taken'
-      )
+      expect(mockedDispatch.mock.calls.length).toBeGreaterThan(0)
+      expect(mockedDispatch).toHaveBeenLastCalledWith({
+        type: 'SET_NOTIFICATION',
+        data: {
+          type: 'ERROR',
+          message: 'Username already taken'
+        }
+      })
     })
 
     it('fails sign up with invalid verify password', async () => {
       component = render(
         <MockedProvider mocks={[apolloMock]}>
-          <MockedStateProvider>
-            <SignupForm showError={mockShowError} />
+          <MockedStateProvider mockedDispatch={mockedDispatch}>
+            <SignupForm />
           </MockedStateProvider>
         </MockedProvider>
       )
@@ -142,11 +145,14 @@ describe('SignupForm', () => {
 
       await waitFor(() => new Promise((res) => setTimeout(res, 0)))
 
-      expect(mockShowError.mock.calls.length).toBeGreaterThan(0)
-      expect(mockShowError).toHaveBeenLastCalledWith(
-        'ERROR',
-        'Passwords do not match'
-      )
+      expect(mockedDispatch.mock.calls.length).toBeGreaterThan(0)
+      expect(mockedDispatch).toHaveBeenLastCalledWith({
+        type: 'SET_NOTIFICATION',
+        data: {
+          type: 'ERROR',
+          message: 'Passwords do not match'
+        }
+      })
     })
   })
 })

@@ -6,6 +6,7 @@ import {
   Route,
   Redirect
 } from 'react-router-dom'
+import { css } from '@emotion/react'
 
 import Home from './components/Home'
 import Loading from './components/Loading'
@@ -13,10 +14,10 @@ import LoginForm from './components/LoginForm'
 import SignupForm from './components/SignupForm'
 import Notification from './components/Notification'
 import Layout from './components/layout'
+import Container from './components/layout/Container'
+import Card from './components/layout/Card'
 
 const App = () => {
-  const [notifyType, setNotifyType] = useState(null)
-  const [notifyMessage, setNotifyMessage] = useState(null)
   const [token, setToken] = useState(null)
   const [loading, setLoading] = useState(true)
 
@@ -40,43 +41,34 @@ const App = () => {
     }
   }
 
-  const showNotification = (type, message) => {
-    setNotifyType(type)
-    setNotifyMessage(message)
-    setTimeout(() => {
-      setNotifyType(null)
-      setNotifyMessage(null)
-    }, 5000)
-  }
-
   return (
     <Router>
       <Layout>
-        <Notification type={notifyType} message={notifyMessage} />
+        <Container>
+          <Notification
+            css={css`
+              margin-bottom: 0.75em;
+            `}
+          />
+          <Card>
+            <Switch>
+              <Route path="/login">
+                <LoginForm updateToken={updateToken} />
+              </Route>
 
-        <Switch>
-          <Route path="/login">
-            <section>
-              <LoginForm
-                showError={showNotification}
-                updateToken={updateToken}
-              />
-            </section>
-          </Route>
+              <Route path="/signup">
+                <SignupForm></SignupForm>
+              </Route>
 
-          <Route path="/signup">
-            <section>
-              <SignupForm showError={showNotification}></SignupForm>
-            </section>
-          </Route>
-
-          <Route path="/">
-            <Loading loading={loading}>
-              <section>{token ? <Home /> : <Redirect to="/login" />}</section>
-            </Loading>
-          </Route>
-        </Switch>
-        {token && <button onClick={() => logout()}>Logout</button>}
+              <Route path="/">
+                <Loading loading={loading}>
+                  {token ? <Home /> : <Redirect to="/login" />}
+                </Loading>
+              </Route>
+            </Switch>
+            {token && <button onClick={() => logout()}>Logout</button>}
+          </Card>
+        </Container>
       </Layout>
     </Router>
   )
