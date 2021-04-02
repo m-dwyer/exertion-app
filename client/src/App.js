@@ -15,8 +15,6 @@ import Notification from './components/Notification'
 import Layout from './components/layout'
 
 const App = () => {
-  const [notifyType, setNotifyType] = useState(null)
-  const [notifyMessage, setNotifyMessage] = useState(null)
   const [token, setToken] = useState(null)
   const [loading, setLoading] = useState(true)
 
@@ -40,33 +38,21 @@ const App = () => {
     }
   }
 
-  const showNotification = (type, message) => {
-    setNotifyType(type)
-    setNotifyMessage(message)
-    setTimeout(() => {
-      setNotifyType(null)
-      setNotifyMessage(null)
-    }, 5000)
-  }
-
   return (
     <Router>
       <Layout>
-        <Notification type={notifyType} message={notifyMessage} />
+        <Notification />
 
         <Switch>
           <Route path="/login">
             <section>
-              <LoginForm
-                showError={showNotification}
-                updateToken={updateToken}
-              />
+              <LoginForm updateToken={updateToken} />
             </section>
           </Route>
 
           <Route path="/signup">
             <section>
-              <SignupForm showError={showNotification}></SignupForm>
+              <SignupForm></SignupForm>
             </section>
           </Route>
 

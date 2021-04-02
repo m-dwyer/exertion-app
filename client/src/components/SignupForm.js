@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
 
@@ -7,17 +7,40 @@ import Form from './Form'
 import Button from './Button'
 import TextInput from './TextInput'
 
-import { ERROR } from './Notification'
+import { ERROR, INFO } from './Notification'
 
 import { useMutation } from '@apollo/client'
 import { CREATE_USER_MUTATION } from '../queries'
+import { store } from '../store'
+import {
+  SET_NOTIFICATION,
+  setNotification,
+  unsetNotification
+} from '../reducer'
 
-const SignupForm = ({ showError }) => {
+const SignupForm = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [verifyPassword, setVerifyPassword] = useState('')
 
+  const { dispatch } = useContext(store)
+
   const history = useHistory()
+
+  const showError = (message) => {
+    showNotification(ERROR, message)
+  }
+
+  const showInfo = (message) => {
+    showNotification(INFO, message)
+  }
+
+  const showNotification = (type, message) => {
+    dispatch(setNotification(type, message))
+    setTimeout(() => {
+      dispatch(unsetNotification())
+    }, 5000)
+  }
 
   const [createUser, result] = useMutation(CREATE_USER_MUTATION, {
     onError: (error) => {
@@ -27,6 +50,7 @@ const SignupForm = ({ showError }) => {
 
   useEffect(() => {
     if (result.data) {
+      showInfo('Account created! Please login')
       history.push('/')
     }
   }, [result.data])
@@ -35,7 +59,7 @@ const SignupForm = ({ showError }) => {
     event.preventDefault()
 
     if (verifyPassword !== password) {
-      showError(ERROR, 'Passwords do not match')
+      showError('Passwords do not match')
       return
     }
 

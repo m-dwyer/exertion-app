@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
 
@@ -11,16 +11,27 @@ import { ERROR } from './Notification'
 import { useMutation } from '@apollo/client'
 import { LOGIN_MUTATION } from '../queries'
 import Button from './Button'
+import { store } from '../store'
+import { setNotification, unsetNotification } from '../reducer'
 
-const LoginForm = ({ showError, updateToken }) => {
+const LoginForm = ({ updateToken }) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
   const history = useHistory()
 
+  const { dispatch } = useContext(store)
+
+  const showError = (message) => {
+    dispatch(setNotification(ERROR, message))
+    setTimeout(() => {
+      dispatch(unsetNotification())
+    }, 5000)
+  }
+
   const [login, result] = useMutation(LOGIN_MUTATION, {
     onError: (error) => {
-      showError(ERROR, error.graphQLErrors[0].message)
+      showError(error.graphQLErrors[0].message)
     }
   })
 
@@ -57,7 +68,6 @@ const LoginForm = ({ showError, updateToken }) => {
 }
 
 LoginForm.propTypes = {
-  showError: PropTypes.func.isRequired,
   updateToken: PropTypes.func.isRequired
 }
 
