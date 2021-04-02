@@ -45,18 +45,16 @@ const LoginForm = ({ updateToken }) => {
 
   return (
     <>
-      <Container>
-        <Form onSubmit={handleLogin}>
-          <TextInput name="username" id="username" setValue={setUsername} />
-          <TextInput
-            name="password"
-            id="password"
-            type="password"
-            setValue={setPassword}
-          />
-          <Button type="submit">Login</Button>
-        </Form>
-      </Container>
+      <Form onSubmit={handleLogin}>
+        <TextInput name="username" id="username" setValue={setUsername} />
+        <TextInput
+          name="password"
+          id="password"
+          type="password"
+          setValue={setPassword}
+        />
+        <Button type="submit">Login</Button>
+      </Form>
     </>
   )
 }

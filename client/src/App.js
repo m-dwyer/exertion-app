@@ -13,6 +13,7 @@ import LoginForm from './components/LoginForm'
 import SignupForm from './components/SignupForm'
 import Notification from './components/Notification'
 import Layout from './components/layout'
+import Container from './components/Container'
 
 const App = () => {
   const [token, setToken] = useState(null)
@@ -42,27 +43,24 @@ const App = () => {
     <Router>
       <Layout>
         <Notification />
-
-        <Switch>
-          <Route path="/login">
-            <section>
+        <Container>
+          <Switch>
+            <Route path="/login">
               <LoginForm updateToken={updateToken} />
-            </section>
-          </Route>
+            </Route>
 
-          <Route path="/signup">
-            <section>
+            <Route path="/signup">
               <SignupForm></SignupForm>
-            </section>
-          </Route>
+            </Route>
 
-          <Route path="/">
-            <Loading loading={loading}>
-              <section>{token ? <Home /> : <Redirect to="/login" />}</section>
-            </Loading>
-          </Route>
-        </Switch>
-        {token && <button onClick={() => logout()}>Logout</button>}
+            <Route path="/">
+              <Loading loading={loading}>
+                {token ? <Home /> : <Redirect to="/login" />}
+              </Loading>
+            </Route>
+          </Switch>
+          {token && <button onClick={() => logout()}>Logout</button>}
+        </Container>
       </Layout>
     </Router>
   )

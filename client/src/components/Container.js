@@ -12,15 +12,23 @@ const Container = ({ children }) => {
   return (
     <div
       css={css`
-        width: 100%;
-        margin: 0 auto;
-        max-width: 400px;
-        background: ${theme.colors.background3};
-        border-radius: 0.5em;
-        padding: 1.5em;
+        height: 100vh;
+        display: flex;
+        align-items: center;
       `}
     >
-      {children}
+      <div
+        css={css`
+          width: 100%;
+          margin: 0 auto;
+          max-width: 400px;
+          background: ${theme.colors.background3};
+          border-radius: 0.5em;
+          padding: 1.5em;
+        `}
+      >
+        {children}
+      </div>
     </div>
   )
 }

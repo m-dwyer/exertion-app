@@ -52,24 +52,22 @@ const SignupForm = () => {
   }
 
   return (
-    <Container>
-      <Form onSubmit={handleSignup}>
-        <TextInput setValue={setUsername} name="username" label="Username" />
-        <TextInput
-          setValue={setPassword}
-          name="password"
-          label="Password"
-          type="password"
-        />
-        <TextInput
-          setValue={setVerifyPassword}
-          name="verifyPassword"
-          label="Verify Password"
-          type="password"
-        />
-        <Button type="submit">Sign up!</Button>
-      </Form>
-    </Container>
+    <Form onSubmit={handleSignup}>
+      <TextInput setValue={setUsername} name="username" label="Username" />
+      <TextInput
+        setValue={setPassword}
+        name="password"
+        label="Password"
+        type="password"
+      />
+      <TextInput
+        setValue={setVerifyPassword}
+        name="verifyPassword"
+        label="Verify Password"
+        type="password"
+      />
+      <Button type="submit">Sign up!</Button>
+    </Form>
   )
 }
 

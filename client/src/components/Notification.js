@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react'
+import { css } from '@emotion/react'
 import PropTypes from 'prop-types'
 import { store } from '../store'
 import { unsetNotification } from '../reducer'
@@ -8,10 +9,9 @@ export const INFO = 'INFO'
 
 const Notification = () => {
   const {
-    state: { notification }
+    state: { theme, notification },
+    dispatch
   } = useContext(store)
-
-  const { dispatch } = useContext(store)
 
   useEffect(() => {
     if (notification) {
@@ -25,13 +25,17 @@ const Notification = () => {
     return null
   }
 
-  const style = {
-    borderStyle: 'solid',
-    borderSize: 1,
-    borderColour: notification.type === ERROR ? 'red' : 'green'
-  }
-
-  return <div style={{ style }}>{notification.message}</div>
+  return (
+    <div
+      css={css`
+        border-radius: 0.25em;
+        padding: 1em 1.5em;
+        background-color: ${theme.colors.dangerBackground};
+      `}
+    >
+      {notification.message}
+    </div>
+  )
 }
 
 Notification.propTypes = {
