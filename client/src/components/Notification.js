@@ -26,14 +26,17 @@ const Notification = (props) => {
     return null
   }
 
+  const backgroundColor =
+    notification.type === ERROR
+      ? theme.colors.dangerBackground
+      : theme.colors.successBackground
+
   return (
     <div
       css={css`
         border-radius: 0.25em;
         padding: 1em 1.5em;
-        background-color: ${notification.type === ERROR
-          ? theme.colors.dangerBackground
-          : theme.colors.successBackground};
+        background-color: ${backgroundColor};
         display: flex;
         justify-content: space-between;
         align-items: center;

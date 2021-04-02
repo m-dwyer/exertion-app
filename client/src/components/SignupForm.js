@@ -11,11 +11,7 @@ import { ERROR, INFO } from './Notification'
 import { useMutation } from '@apollo/client'
 import { CREATE_USER_MUTATION } from '../queries'
 import { store } from '../store'
-import {
-  SET_NOTIFICATION,
-  setNotification,
-  unsetNotification
-} from '../reducer'
+import { setNotification } from '../reducer'
 
 const SignupForm = () => {
   const [username, setUsername] = useState('')

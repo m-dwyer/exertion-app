@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import {
   BrowserRouter as Router,
@@ -12,12 +12,10 @@ import Home from './components/Home'
 import Loading from './components/Loading'
 import LoginForm from './components/LoginForm'
 import SignupForm from './components/SignupForm'
-import Notification, { ERROR } from './components/Notification'
+import Notification from './components/Notification'
 import Layout from './components/layout'
 import Container from './components/layout/Container'
 import Card from './components/layout/Card'
-import { setNotification } from './reducer'
-import { store } from './store'
 
 const App = () => {
   const [token, setToken] = useState(null)
@@ -42,8 +40,6 @@ const App = () => {
       setToken(null)
     }
   }
-
-  const { dispatch } = useContext(store)
 
   return (
     <Router>

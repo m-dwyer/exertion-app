@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { css } from '@emotion/react'
 
 const Container = ({ children }) => {
@@ -16,6 +17,10 @@ const Container = ({ children }) => {
       {children}
     </div>
   )
+}
+
+Container.propTypes = {
+  children: PropTypes.any
 }
 
 export default Container
