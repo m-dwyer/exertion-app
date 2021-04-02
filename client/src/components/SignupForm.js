@@ -27,30 +27,15 @@ const SignupForm = () => {
 
   const history = useHistory()
 
-  const showError = (message) => {
-    showNotification(ERROR, message)
-  }
-
-  const showInfo = (message) => {
-    showNotification(INFO, message)
-  }
-
-  const showNotification = (type, message) => {
-    dispatch(setNotification(type, message))
-    setTimeout(() => {
-      dispatch(unsetNotification())
-    }, 5000)
-  }
-
   const [createUser, result] = useMutation(CREATE_USER_MUTATION, {
     onError: (error) => {
-      showError(ERROR, error.graphQLErrors[0].message)
+      dispatch(setNotification(ERROR, error.graphQLErrors[0].message))
     }
   })
 
   useEffect(() => {
     if (result.data) {
-      showInfo('Account created! Please login')
+      dispatch(setNotification(INFO, 'Account created! Please login'))
       history.push('/')
     }
   }, [result.data])
@@ -59,7 +44,7 @@ const SignupForm = () => {
     event.preventDefault()
 
     if (verifyPassword !== password) {
-      showError('Passwords do not match')
+      dispatch(setNotification(ERROR, 'Passwords do not match'))
       return
     }
 

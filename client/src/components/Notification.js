@@ -1,6 +1,7 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { store } from '../store'
+import { unsetNotification } from '../reducer'
 
 export const ERROR = 'ERROR'
 export const INFO = 'INFO'
@@ -9,6 +10,16 @@ const Notification = () => {
   const {
     state: { notification }
   } = useContext(store)
+
+  const { dispatch } = useContext(store)
+
+  useEffect(() => {
+    if (notification) {
+      setTimeout(() => {
+        dispatch(unsetNotification())
+      }, 5000)
+    }
+  }, [notification])
 
   if (!notification) {
     return null

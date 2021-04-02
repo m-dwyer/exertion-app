@@ -12,7 +12,8 @@ import { useMutation } from '@apollo/client'
 import { LOGIN_MUTATION } from '../queries'
 import Button from './Button'
 import { store } from '../store'
-import { setNotification, unsetNotification } from '../reducer'
+
+import { setNotification } from '../reducer'
 
 const LoginForm = ({ updateToken }) => {
   const [username, setUsername] = useState('')
@@ -22,26 +23,19 @@ const LoginForm = ({ updateToken }) => {
 
   const { dispatch } = useContext(store)
 
-  const showError = (message) => {
-    dispatch(setNotification(ERROR, message))
-    setTimeout(() => {
-      dispatch(unsetNotification())
-    }, 5000)
-  }
-
-  const [login, result] = useMutation(LOGIN_MUTATION, {
+  const [login, { data }] = useMutation(LOGIN_MUTATION, {
     onError: (error) => {
-      showError(error.graphQLErrors[0].message)
+      dispatch(setNotification(ERROR, error.graphQLErrors[0].message))
     }
   })
 
   useEffect(() => {
-    if (result.data) {
-      const token = result.data.loginUser.value
+    if (data) {
+      const token = data.loginUser.value
       updateToken(token)
       history.push('/')
     }
-  }, [result.data])
+  }, [data])
 
   const handleLogin = (e) => {
     e.preventDefault()
