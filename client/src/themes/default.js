@@ -7,6 +7,7 @@ export default {
     foreground1: '#ffffff',
     foreground2: '#B7094C',
     highlight: '#723C70',
-    dangerBackground: '#B7094C'
+    dangerBackground: '#B7094C',
+    successBackground: '#74c69d'
   }
 }

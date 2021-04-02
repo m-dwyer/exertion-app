@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from 'react'
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
 
-import Container from './Container'
 import Form from './Form'
 import TextInput from './TextInput'
 

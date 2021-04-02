@@ -3,11 +3,12 @@ import { css } from '@emotion/react'
 import PropTypes from 'prop-types'
 import { store } from '../store'
 import { unsetNotification } from '../reducer'
+import CloseButton from '../assets/closemenu.svg'
 
 export const ERROR = 'ERROR'
 export const INFO = 'INFO'
 
-const Notification = () => {
+const Notification = (props) => {
   const {
     state: { theme, notification },
     dispatch
@@ -17,7 +18,7 @@ const Notification = () => {
     if (notification) {
       setTimeout(() => {
         dispatch(unsetNotification())
-      }, 5000)
+      }, 10000)
     }
   }, [notification])
 
@@ -30,10 +31,22 @@ const Notification = () => {
       css={css`
         border-radius: 0.25em;
         padding: 1em 1.5em;
-        background-color: ${theme.colors.dangerBackground};
+        background-color: ${notification.type === ERROR
+          ? theme.colors.dangerBackground
+          : theme.colors.successBackground};
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
       `}
+      {...props}
     >
       {notification.message}
+      <CloseButton
+        css={css`
+          color: white;
+        `}
+        onClick={() => dispatch(unsetNotification())}
+      />
     </div>
   )
 }
