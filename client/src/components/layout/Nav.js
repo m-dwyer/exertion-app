@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { React, useState, useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import { css } from '@emotion/react'
 
 import HamburgerIcon from '../../assets/hamburger.svg'
@@ -16,6 +16,9 @@ const Nav = ({ children, ...props }) => {
   const toggleMenu = () => {
     setVisible(!visible)
   }
+
+  const resolvedChildren =
+    children.type === React.Fragment ? children.props.children : children
 
   return (
     <div
@@ -50,7 +53,8 @@ const Nav = ({ children, ...props }) => {
       />
       <nav
         css={css`
-          background-color: gray;
+          background-color: black;
+          opacity: 0.8;
           position: fixed;
           z-index: 999;
           width: 40%;
@@ -82,6 +86,7 @@ const Nav = ({ children, ...props }) => {
             top: 0;
             right: 0;
             margin: 0.5em;
+            color: ${theme.colors.foreground1};
 
             @media (min-width: 480px) {
               display: none;
@@ -99,9 +104,8 @@ const Nav = ({ children, ...props }) => {
           `}
           {...props}
         >
-          {children.map((c, i) => (
+          {React.Children.map(resolvedChildren, (child) => (
             <li
-              key={i}
               css={css`
                 list-style-type: none;
                 padding: 1.5em 1em;
@@ -109,7 +113,7 @@ const Nav = ({ children, ...props }) => {
                 text-align: right;
               `}
             >
-              {c}
+              {child}
             </li>
           ))}
         </ul>

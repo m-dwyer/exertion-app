@@ -28,7 +28,7 @@ jest.mock('../store', () => ({
 }))
 
 describe('LoginForm', () => {
-  let mockedDispatch, mockUpdateToken
+  let mockedDispatch
   let component
   const apolloMock = {
     request: {
@@ -40,14 +40,13 @@ describe('LoginForm', () => {
 
   beforeEach(() => {
     mockedDispatch = jest.fn()
-    mockUpdateToken = jest.fn()
   })
 
   test('renders content', () => {
     component = render(
       <MockedProvider mocks={[apolloMock]}>
         <MockedStateProvider mockedDispatch={mockedDispatch}>
-          <LoginForm updateToken={mockUpdateToken} />
+          <LoginForm />
         </MockedStateProvider>
       </MockedProvider>
     )
@@ -72,7 +71,7 @@ describe('LoginForm', () => {
       component = render(
         <MockedProvider mocks={[apolloMock]}>
           <MockedStateProvider mockedDispatch={mockedDispatch}>
-            <LoginForm updateToken={mockUpdateToken} />
+            <LoginForm />
           </MockedStateProvider>
         </MockedProvider>
       )
@@ -80,9 +79,14 @@ describe('LoginForm', () => {
       runLogin(component.container)
       await waitFor(() => new Promise((res) => setTimeout(res, 0)))
 
-      expect(mockUpdateToken.mock.calls).toHaveLength(1)
-      expect(mockUpdateToken.mock.calls[0]).toEqual(['some-token'])
       expect(mockHistoryPush.mock.calls).toHaveLength(1)
+      expect(mockedDispatch.mock.calls.length).toBeGreaterThan(0)
+      expect(mockedDispatch).toHaveBeenLastCalledWith({
+        type: 'SET_TOKEN',
+        data: {
+          token: 'some-token'
+        }
+      })
     })
 
     it('fails to log in with invalid credentials', async () => {
@@ -96,7 +100,7 @@ describe('LoginForm', () => {
       component = render(
         <MockedProvider mocks={[failedLoginMock]}>
           <MockedStateProvider mockedDispatch={mockedDispatch}>
-            <LoginForm updateToken={mockUpdateToken} />
+            <LoginForm />
           </MockedStateProvider>
         </MockedProvider>
       )
