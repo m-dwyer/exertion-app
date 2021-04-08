@@ -1,12 +1,13 @@
 import React, { useContext } from 'react'
 import { css } from '@emotion/react'
 
+import { ERROR } from './Notification'
+import Container from './layout/Container'
+
 import { store } from '../store'
 import { useQuery } from '@apollo/client'
 import { GET_ACTIVITIES } from '../queries'
 import { setNotification } from '../reducer'
-import { ERROR } from './Notification'
-import Container from './layout/Container'
 
 const WallActivities = () => {
   const { loading, error, data } = useQuery(GET_ACTIVITIES)
