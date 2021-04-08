@@ -2,8 +2,13 @@ const {
   ApolloServer,
   gql,
   UserInputError,
-  AuthenticationError
+  AuthenticationError,
+  PubSub
 } = require('apollo-server')
+
+// TODO: switch out, PubSub is NOT production ready
+// See https://www.apollographql.com/docs/apollo-server/data/subscriptions/
+const pubsub = new PubSub()
 
 const mongoose = require('mongoose')
 const User = require('./models/User')
@@ -57,6 +62,10 @@ const typeDefs = gql`
     me: User
 
     getActivities: [Activity]!
+  }
+
+  type Subscription {
+    activityAdded: Activity
   }
 `
 
@@ -118,6 +127,8 @@ const resolvers = {
         })
       }
 
+      pubsub.publish('ACTIVITY_CREATED', { activityAdded: activity })
+
       return activity
     }
   },
@@ -128,12 +139,21 @@ const resolvers = {
 
       return activities
     }
+  },
+
+  Subscription: {
+    activityAdded: {
+      subscribe: () => pubsub.asyncIterator(['ACTIVITY_CREATED'])
+    }
   }
 }
 
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  subscriptions: {
+    path: '/subscriptions'
+  },
   context: async ({ req }) => {
     const auth = req ? req.headers.authorization : null
     if (auth && auth.toLowerCase().startsWith('bearer ')) {
