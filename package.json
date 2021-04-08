@@ -6,6 +6,6 @@
   "scripts": {
     "lint": "lerna run lint --parallel",
     "test": "lerna run test --parallel",
-    "dev": "lerna run dev"
+    "dev": "lerna run --stream dev"
   }
 }
