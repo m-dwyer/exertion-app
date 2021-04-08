@@ -1,9 +1,10 @@
 import React from 'react'
+import Wall from './wall'
 
 const Home = () => {
   return (
     <>
-      <div>Homepage</div>
+      <Wall />
     </>
   )
 }

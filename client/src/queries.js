@@ -16,3 +16,12 @@ export const CREATE_USER_MUTATION = gql`
     }
   }
 `
+
+export const CREATE_ACTIVITY_MUTATION = gql`
+  mutation createActivity($type: String!, $duration: Int!) {
+    createActivity(type: $type, duration: $duration) {
+      type
+      duration
+    }
+  }
+`
