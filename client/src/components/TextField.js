@@ -13,9 +13,12 @@ const TextField = (props) => {
         border-radius: 0.25em;
         border: 1px solid gray;
         padding: 0.8em;
-        width: 100%;
         background: ${theme.colors.background2};
         color: ${theme.colors.foreground1};
+
+        ::placeholder {
+          color: ${theme.colors.foreground1};
+        }
       `}
       {...props}
     />

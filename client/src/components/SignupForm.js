@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
+import { css } from '@emotion/react'
+
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
 
@@ -48,20 +50,43 @@ const SignupForm = () => {
 
   return (
     <Form onSubmit={handleSignup}>
-      <TextInput setValue={setUsername} name="username" label="Username" />
+      <TextInput
+        setValue={setUsername}
+        name="username"
+        label="Username"
+        css={css`
+          width: 100%;
+        `}
+      />
       <TextInput
         setValue={setPassword}
         name="password"
         label="Password"
         type="password"
+        css={css`
+          width: 100%;
+        `}
       />
       <TextInput
         setValue={setVerifyPassword}
         name="verifyPassword"
         label="Verify Password"
         type="password"
+        css={css`
+          width: 100%;
+        `}
       />
-      <Button type="submit">Sign up!</Button>
+      <Button
+        type="submit"
+        css={css`
+          width: 100%;
+          margin: 1.25em auto;
+          padding: 0.75em 2.5em;
+          border-radius: 5em;
+        `}
+      >
+        Sign up!
+      </Button>
     </Form>
   )
 }

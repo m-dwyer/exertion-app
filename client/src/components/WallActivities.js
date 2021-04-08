@@ -1,4 +1,5 @@
 import React, { useContext } from 'react'
+import { css } from '@emotion/react'
 
 import { store } from '../store'
 import { useQuery } from '@apollo/client'
@@ -18,7 +19,11 @@ const WallActivities = () => {
   }
 
   return (
-    <Container>
+    <Container
+      css={css`
+        overflow-y: scroll;
+      `}
+    >
       <ul>
         {data.getActivities.map((a) => (
           <li>

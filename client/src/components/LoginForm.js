@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
+import { css } from '@emotion/react'
 import { useHistory } from 'react-router-dom'
 
 import Form from './Form'
@@ -44,14 +45,34 @@ const LoginForm = () => {
   return (
     <>
       <Form onSubmit={handleLogin}>
-        <TextInput name="username" id="username" setValue={setUsername} />
+        <TextInput
+          name="username"
+          id="username"
+          setValue={setUsername}
+          css={css`
+            width: 100%;
+          `}
+        />
         <TextInput
           name="password"
           id="password"
           type="password"
           setValue={setPassword}
+          css={css`
+            width: 100%;
+          `}
         />
-        <Button type="submit">Login</Button>
+        <Button
+          type="submit"
+          css={css`
+            width: 100%;
+            margin: 1.25em auto;
+            padding: 0.75em 2.5em;
+            border-radius: 5em;
+          `}
+        >
+          Login
+        </Button>
       </Form>
     </>
   )
