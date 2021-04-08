@@ -1,4 +1,9 @@
-const { ApolloServer, gql, UserInputError } = require('apollo-server')
+const {
+  ApolloServer,
+  gql,
+  UserInputError,
+  AuthenticationError
+} = require('apollo-server')
 
 const mongoose = require('mongoose')
 const User = require('./models/User')
@@ -93,9 +98,14 @@ const resolvers = {
     },
 
     createActivity: async (root, args, context) => {
+      const { currentUser } = context
+      // TODO: move this into middleware
+      if (!currentUser) throw new AuthenticationError('Not authenticated!')
+
       const activity = new Activity({
         type: args.type,
-        duration: args.duration
+        duration: args.duration,
+        user: currentUser.id
       })
 
       try {
