@@ -55,6 +55,8 @@ const typeDefs = gql`
 
   type Query {
     me: User
+
+    getActivities: [Activity]!
   }
 `
 
@@ -117,6 +119,14 @@ const resolvers = {
       }
 
       return activity
+    }
+  },
+
+  Query: {
+    getActivities: async () => {
+      const activities = await Activity.find({}).populate('user')
+
+      return activities
     }
   }
 }

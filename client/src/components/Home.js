@@ -1,12 +1,8 @@
 import React from 'react'
-import Wall from './wall'
+import Wall from './Wall'
 
 const Home = () => {
-  return (
-    <>
-      <Wall />
-    </>
-  )
+  return <Wall />
 }
 
 export default Home

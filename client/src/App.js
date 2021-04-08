@@ -3,7 +3,6 @@ import React, { useEffect, useContext } from 'react'
 import { BrowserRouter as Router, Switch } from 'react-router-dom'
 import { css } from '@emotion/react'
 
-import Home from './components/Home'
 import ProtectedRoute, {
   PRIVATE,
   RESTRICTED,
@@ -14,10 +13,10 @@ import Logout from './components/Logout'
 import SignupForm from './components/SignupForm'
 import Notification from './components/Notification'
 import Layout from './components/layout'
-import Container from './components/layout/Container'
 import Card from './components/layout/Card'
 import { store } from './store'
 import { setToken } from './reducer'
+import Wall from './components/Wall'
 
 const App = () => {
   const { state, dispatch } = useContext(store)
@@ -41,48 +40,49 @@ const App = () => {
   return (
     <Router>
       <Layout>
-        <Container>
-          <Notification
-            css={css`
-              margin-bottom: 0.75em;
-            `}
-          />
-          <Card>
-            <Switch>
-              <ProtectedRoute
-                visibility={RESTRICTED}
-                isAuthenticated={isAuthenticated}
-                path="/login"
-              >
-                <LoginForm />
-              </ProtectedRoute>
+        <Notification
+          css={css`
+            margin-bottom: 0.75em;
+          `}
+        />
 
-              <ProtectedRoute
-                visibility={RESTRICTED}
-                isAuthenticated={isAuthenticated}
-                path="/signup"
-              >
-                <SignupForm />
-              </ProtectedRoute>
+        <Switch>
+          <ProtectedRoute
+            visibility={RESTRICTED}
+            isAuthenticated={isAuthenticated}
+            path="/login"
+          >
+            <Card>
+              <LoginForm />
+            </Card>
+          </ProtectedRoute>
 
-              <ProtectedRoute
-                visibility={PRIVATE}
-                isAuthenticated={isAuthenticated}
-                path="/logout"
-              >
-                <Logout />
-              </ProtectedRoute>
+          <ProtectedRoute
+            visibility={RESTRICTED}
+            isAuthenticated={isAuthenticated}
+            path="/signup"
+          >
+            <Card>
+              <SignupForm />
+            </Card>
+          </ProtectedRoute>
 
-              <ProtectedRoute
-                visibility={PRIVATE}
-                isAuthenticated={isAuthenticated}
-                path="/"
-              >
-                <Home />
-              </ProtectedRoute>
-            </Switch>
-          </Card>
-        </Container>
+          <ProtectedRoute
+            visibility={PRIVATE}
+            isAuthenticated={isAuthenticated}
+            path="/logout"
+          >
+            <Logout />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            visibility={PRIVATE}
+            isAuthenticated={isAuthenticated}
+            path="/"
+          >
+            <Wall />
+          </ProtectedRoute>
+        </Switch>
       </Layout>
     </Router>
   )

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
+import { css } from '@emotion/react'
 
 import Form from './Form'
 import TextInput from './TextInput'
@@ -15,7 +16,8 @@ const ActivityForm = () => {
   const [type, setType] = useState(null)
   const [duration, setDuration] = useState(null)
 
-  const { dispatch } = useContext(store)
+  const { dispatch, state } = useContext(store)
+  const { theme } = state
 
   const [createActivity, result] = useMutation(CREATE_ACTIVITY_MUTATION, {
     onError: (error) => {

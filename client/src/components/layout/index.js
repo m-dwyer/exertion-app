@@ -66,14 +66,15 @@ const Layout = ({ children }) => {
           )}
         </Nav>
       </header>
-      <main>
-        <div
-          css={css`
-            margin: 0 auto;
-          `}
-        >
-          {children}
-        </div>
+      <main
+        css={css`
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+        `}
+      >
+        {children}
       </main>
       <footer></footer>
     </>

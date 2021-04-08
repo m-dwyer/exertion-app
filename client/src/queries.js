@@ -25,3 +25,15 @@ export const CREATE_ACTIVITY_MUTATION = gql`
     }
   }
 `
+
+export const GET_ACTIVITIES = gql`
+  query getActivities {
+    getActivities {
+      type
+      duration
+      user {
+        username
+      }
+    }
+  }
+`
