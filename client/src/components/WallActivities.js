@@ -1,5 +1,4 @@
 import React, { useContext } from 'react'
-import Card from './layout/Card'
 
 import { store } from '../store'
 import { useQuery } from '@apollo/client'
@@ -17,8 +16,6 @@ const WallActivities = () => {
   if (error) {
     dispatch(setNotification(ERROR, error))
   }
-
-  console.log(data)
 
   return (
     <Container>

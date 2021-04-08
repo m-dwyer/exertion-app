@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { css } from '@emotion/react'
 
 import Form from './Form'
-import TextInput from './TextInput'
+import TextField from './TextField'
 
-import { ERROR, INFO } from './Notification'
+import { ERROR } from './Notification'
 
 import { useMutation } from '@apollo/client'
 import { CREATE_ACTIVITY_MUTATION } from '../queries'
@@ -16,8 +15,7 @@ const ActivityForm = () => {
   const [type, setType] = useState(null)
   const [duration, setDuration] = useState(null)
 
-  const { dispatch, state } = useContext(store)
-  const { theme } = state
+  const { dispatch } = useContext(store)
 
   const [createActivity, result] = useMutation(CREATE_ACTIVITY_MUTATION, {
     onError: (error) => {
@@ -39,17 +37,15 @@ const ActivityForm = () => {
 
   return (
     <Form onSubmit={handleCreate}>
-      <TextInput
+      <TextField
         name="activityType"
-        label="Activity Type"
-        type="text"
-        setValue={setType}
+        onChange={({ target }) => setType(target.value)}
       />
-      <TextInput
+      <TextField
         name="activityDuration"
         label="Activity Duration"
         type="text"
-        setValue={setDuration}
+        onChange={({ target }) => setDuration(target.value)}
       />
       <Button type="submit">Create</Button>
     </Form>

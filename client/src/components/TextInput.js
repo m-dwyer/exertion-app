@@ -1,41 +1,22 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { css } from '@emotion/react'
 import PropTypes from 'prop-types'
 
-import { store } from '../store'
+import TextField from './TextField'
+import Label from './Label'
 
 const TextInput = ({ setValue, name, label = name, ...props }) => {
-  const { state } = useContext(store)
-  const { theme } = state
-
   return (
     <div
       css={css`
         margin-top: 1em;
       `}
     >
-      <label
-        htmlFor={name}
-        css={css`
-          display: block;
-          font-size: 1.2em;
-          margin-bottom: 0.75em;
-          text-transform: capitalize;
-        `}
-      >
-        {label}
-      </label>
-      <input
+      <Label name={name} label={label} />
+      <TextField
+        id={name}
         name={name}
         onChange={({ target }) => setValue(target.value)}
-        css={css`
-          border-radius: 0.25em;
-          border: 1px solid gray;
-          padding: 0.8em;
-          width: 100%;
-          background: ${theme.colors.background2};
-          color: ${theme.colors.foreground1};
-        `}
         {...props}
       />
     </div>
