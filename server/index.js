@@ -45,6 +45,7 @@ const typeDefs = gql`
   }
 
   type Activity {
+    id: ID!
     user: User!
     type: String!
     duration: Int!
@@ -127,7 +128,8 @@ const resolvers = {
         })
       }
 
-      pubsub.publish('ACTIVITY_CREATED', { activityAdded: activity })
+      const newActivity = await Activity.findById(activity.id).populate('user')
+      pubsub.publish('ACTIVITY_CREATED', { activityAdded: newActivity })
 
       return activity
     }
