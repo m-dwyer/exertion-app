@@ -14,6 +14,10 @@ const schema = new mongoose.Schema({
   duration: {
     type: mongoose.Schema.Types.Number,
     required: true
+  },
+  time: {
+    type: mongoose.Schema.Types.Date,
+    default: Date.now()
   }
 })
 
