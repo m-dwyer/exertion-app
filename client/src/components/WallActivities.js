@@ -45,14 +45,26 @@ const WallActivities = () => {
     <Container
       css={css`
         overflow-y: scroll;
+        height: 100%;
       `}
     >
-      <ul>
+      <ul
+        css={css`
+          list-style-type: none;
+        `}
+      >
         {data.getActivities.map((a) => (
-          <li>
-            user: {a.user.username} <br />
-            type: {a.type} <br />
-            duration: {a.duration}
+          <li key={a.id}>
+            <div>
+              <span
+                css={css`
+                  font-weight: bold;
+                `}
+              >
+                {a.user.username}
+              </span>{' '}
+              completed {a.duration} minutes of {a.type}
+            </div>
           </li>
         ))}
       </ul>

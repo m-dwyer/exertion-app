@@ -17,10 +17,42 @@ const Wall = () => {
         background: ${theme.colors.background3};
         border-radius: 0.5em;
         margin: 2em 2em;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+
+        * + * {
+          margin-top: 1em;
+        }
       `}
     >
-      <ActivityForm />
-      <WallActivities />
+      <Container
+        css={css`
+          background: ${theme.colors.background2};
+          border-radius: 1em;
+        `}
+      >
+        <div
+          css={css`
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 1em;
+          `}
+        >
+          Log an activity
+        </div>
+        <ActivityForm />
+      </Container>
+      <Container
+        css={css`
+          background: ${theme.colors.background2};
+          // background: yellow;
+          height: 100%;
+          border-radius: 1em;
+        `}
+      >
+        <WallActivities />
+      </Container>
     </Container>
   )
 }

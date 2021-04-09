@@ -7,7 +7,6 @@ import Nav from './Nav'
 
 import { store } from '../../store'
 
-// eslint-disable-next-line no-unused-vars
 const Layout = ({ children }) => {
   const { state } = useContext(store)
   const { theme, token } = state
