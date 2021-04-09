@@ -40,7 +40,10 @@ const config = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      SERVER_URL: JSON.stringify(process.env.SERVER_URL)
+      SERVER_URL: JSON.stringify(process.env.SERVER_URL),
+      SERVER_SUBSCRIPTION_URL: JSON.stringify(
+        process.env.SERVER_SUBSCRIPTION_URL
+      )
     }),
     new HtmlWebpackPlugin({
       template: __dirname + '/public/index.html'

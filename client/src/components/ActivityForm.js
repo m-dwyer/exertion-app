@@ -7,7 +7,7 @@ import TextField from './TextField'
 import { ERROR } from './Notification'
 
 import { useMutation } from '@apollo/client'
-import { CREATE_ACTIVITY_MUTATION, GET_ACTIVITIES } from '../queries'
+import { CREATE_ACTIVITY_MUTATION } from '../queries'
 import { store } from '../store'
 import { setNotification } from '../reducer'
 import Button from './Button'
@@ -19,7 +19,6 @@ const ActivityForm = () => {
   const { dispatch } = useContext(store)
 
   const [createActivity, result] = useMutation(CREATE_ACTIVITY_MUTATION, {
-    refetchQueries: [{ query: GET_ACTIVITIES }],
     onError: (error) => {
       dispatch(setNotification(ERROR, error.graphQLErrors[0].message))
     }

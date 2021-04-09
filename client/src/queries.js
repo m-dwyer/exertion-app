@@ -37,3 +37,15 @@ export const GET_ACTIVITIES = gql`
     }
   }
 `
+
+export const ACTIVITY_ADDED_SUBSCRIPTION = gql`
+  subscription activityAdded {
+    activityAdded {
+      type
+      duration
+      user {
+        username
+      }
+    }
+  }
+`

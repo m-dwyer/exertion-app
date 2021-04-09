@@ -1,20 +1,42 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { css } from '@emotion/react'
 
 import { ERROR } from './Notification'
 import Container from './layout/Container'
 
 import { store } from '../store'
-import { useQuery } from '@apollo/client'
-import { GET_ACTIVITIES } from '../queries'
+import { useApolloClient, useQuery, useSubscription } from '@apollo/client'
+import { GET_ACTIVITIES, ACTIVITY_ADDED_SUBSCRIPTION } from '../queries'
 import { setNotification } from '../reducer'
 
 const WallActivities = () => {
-  const { loading, error, data } = useQuery(GET_ACTIVITIES)
+  const client = useApolloClient()
+  const { loading: loadingActivity, error, data } = useQuery(GET_ACTIVITIES)
+  const { data: subscriptionData } = useSubscription(
+    ACTIVITY_ADDED_SUBSCRIPTION
+  )
 
   const { dispatch } = useContext(store)
 
-  if (loading) return null
+  useEffect(() => {
+    if (subscriptionData) {
+      const cacheData = client.readQuery({
+        query: GET_ACTIVITIES
+      })
+
+      client.writeQuery({
+        query: GET_ACTIVITIES,
+        data: {
+          getActivities: cacheData.getActivities.concat(
+            subscriptionData.activityAdded
+          )
+        }
+      })
+    }
+  }, [subscriptionData])
+
+  if (loadingActivity) return null
+
   if (error) {
     dispatch(setNotification(ERROR, error))
   }

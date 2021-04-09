@@ -8,9 +8,12 @@ import {
   ApolloClient,
   InMemoryCache,
   HttpLink,
-  ApolloProvider
+  ApolloProvider,
+  split
 } from '@apollo/client'
 import { setContext } from 'apollo-link-context'
+import { WebSocketLink } from '@apollo/client/link/ws'
+import { getMainDefinition } from '@apollo/client/utilities'
 
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem('usertoken')
@@ -24,9 +27,33 @@ const authLink = setContext((_, { headers }) => {
 
 const httpLink = new HttpLink({ uri: SERVER_URL })
 
+const wsLink = new WebSocketLink({
+  uri: SERVER_SUBSCRIPTION_URL,
+  options: {
+    reconnect: true
+  }
+})
+
+// Execute function to check operation type
+// If truthy (operation is a subscription), use the web socket link
+// If falsey (e.g. query, mutation), use http link with auth header
+
+// TODO: Add auth over web socket! (See https://www.apollographql.com/docs/react/data/subscriptions/)
+const splitLink = split(
+  ({ query }) => {
+    const definition = getMainDefinition(query)
+    return (
+      definition.kind === 'OperationDefinition' &&
+      definition.operation === 'subscription'
+    )
+  },
+  wsLink,
+  authLink.concat(httpLink)
+)
+
 const client = new ApolloClient({
   cache: new InMemoryCache(),
-  link: authLink.concat(httpLink)
+  link: splitLink
 })
 
 ReactDOM.render(
