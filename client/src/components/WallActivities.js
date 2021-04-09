@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from 'react'
 import { css } from '@emotion/react'
 
-import { ERROR } from './Notification'
 import Container from './layout/Container'
+import { ERROR } from './Notification'
 
 import { store } from '../store'
 import { useApolloClient, useQuery, useSubscription } from '@apollo/client'

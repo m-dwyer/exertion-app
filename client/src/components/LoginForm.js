@@ -4,15 +4,13 @@ import { useHistory } from 'react-router-dom'
 
 import Form from './Form'
 import TextInput from './TextInput'
-
+import Button from './Button'
 import { ERROR } from './Notification'
 
 import { useMutation } from '@apollo/client'
 import { LOGIN_MUTATION } from '../queries'
-import Button from './Button'
-import { store } from '../store'
-
 import { setNotification, setToken } from '../reducer'
+import { store } from '../store'
 
 const LoginForm = () => {
   const [username, setUsername] = useState('')

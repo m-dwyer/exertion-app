@@ -1,19 +1,17 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { css } from '@emotion/react'
-
 import PropTypes from 'prop-types'
+import { css } from '@emotion/react'
 import { useHistory } from 'react-router-dom'
 
 import Form from './Form'
 import Button from './Button'
 import TextInput from './TextInput'
-
 import { ERROR, INFO } from './Notification'
 
 import { useMutation } from '@apollo/client'
 import { CREATE_USER_MUTATION } from '../queries'
-import { store } from '../store'
 import { setNotification } from '../reducer'
+import { store } from '../store'
 
 const SignupForm = () => {
   const [username, setUsername] = useState('')

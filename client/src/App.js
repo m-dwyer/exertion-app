@@ -1,12 +1,10 @@
 import React, { useEffect, useContext } from 'react'
-
-import { BrowserRouter as Router, Switch } from 'react-router-dom'
 import { css } from '@emotion/react'
+import { BrowserRouter as Router, Switch } from 'react-router-dom'
 
 import ProtectedRoute, {
   PRIVATE,
-  RESTRICTED,
-  PUBLIC
+  RESTRICTED
 } from './components/ProtectedRoute'
 import LoginForm from './components/LoginForm'
 import Logout from './components/Logout'
@@ -14,9 +12,10 @@ import SignupForm from './components/SignupForm'
 import Notification from './components/Notification'
 import Layout from './components/layout'
 import Card from './components/layout/Card'
-import { store } from './store'
-import { setToken } from './reducer'
 import Wall from './components/Wall'
+
+import { setToken } from './reducer'
+import { store } from './store'
 
 const App = () => {
   const { state, dispatch } = useContext(store)

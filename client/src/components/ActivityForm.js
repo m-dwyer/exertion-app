@@ -3,14 +3,13 @@ import { css } from '@emotion/react'
 
 import Form from './Form'
 import TextField from './TextField'
-
+import Button from './Button'
 import { ERROR } from './Notification'
 
 import { useMutation } from '@apollo/client'
 import { CREATE_ACTIVITY_MUTATION } from '../queries'
-import { store } from '../store'
 import { setNotification } from '../reducer'
-import Button from './Button'
+import { store } from '../store'
 
 const ActivityForm = () => {
   const [type, setType] = useState(null)

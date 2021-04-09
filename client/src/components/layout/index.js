@@ -4,6 +4,7 @@ import { css, Global } from '@emotion/react'
 import { Link } from 'react-router-dom'
 
 import Nav from './Nav'
+
 import { store } from '../../store'
 
 // eslint-disable-next-line no-unused-vars

@@ -4,6 +4,7 @@ import { css } from '@emotion/react'
 import Container from './layout/Container'
 import ActivityForm from './ActivityForm'
 import WallActivities from './WallActivities'
+
 import { store } from '../store'
 
 const Wall = () => {

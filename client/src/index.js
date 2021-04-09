@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
-import { StateProvider } from './store'
+
 import DefaultTheme from './themes/default'
 
 import {
@@ -14,6 +14,8 @@ import {
 import { setContext } from 'apollo-link-context'
 import { WebSocketLink } from '@apollo/client/link/ws'
 import { getMainDefinition } from '@apollo/client/utilities'
+
+import { StateProvider } from './store'
 
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem('usertoken')
