@@ -32,7 +32,13 @@ const httpLink = new HttpLink({ uri: SERVER_URL })
 const wsLink = new WebSocketLink({
   uri: SERVER_SUBSCRIPTION_URL,
   options: {
-    reconnect: true
+    reconnect: true,
+    connectionParams: () => {
+      const token = localStorage.getItem('usertoken')
+      return {
+        authorization: token ? `bearer ${token}` : null
+      }
+    }
   }
 })
 

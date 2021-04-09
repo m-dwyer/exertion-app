@@ -145,9 +145,27 @@ const resolvers = {
 
   Subscription: {
     activityAdded: {
-      subscribe: () => pubsub.asyncIterator(['ACTIVITY_CREATED'])
+      subscribe: (root, args, context) => {
+        const { currentUser } = context
+        if (!currentUser) throw new AuthenticationError('Not authenticated!')
+        return pubsub.asyncIterator(['ACTIVITY_CREATED'])
+      }
     }
   }
+}
+
+const getUserFromToken = async (token) => {
+  let decodedToken = null
+
+  try {
+    decodedToken = await jwt.verify(token, process.env.JWT_SECRET)
+  } catch (error) {
+    return null
+  }
+
+  const currentUser = await User.findById(decodedToken.id)
+
+  return currentUser
 }
 
 const server = new ApolloServer({
@@ -156,13 +174,22 @@ const server = new ApolloServer({
   subscriptions: {
     path: '/subscriptions'
   },
-  context: async ({ req }) => {
-    const auth = req ? req.headers.authorization : null
-    if (auth && auth.toLowerCase().startsWith('bearer ')) {
-      const decodedToken = jwt.verify(auth.substring(7), process.env.JWT_SECRET)
-      const currentUser = await User.findById(decodedToken.id)
-      return { currentUser }
+  context: async ({ req, connection }) => {
+    let token = null
+    let auth = null
+    if (connection) {
+      auth = connection.context.authorization
+    } else {
+      auth = req ? req.headers.authorization : null
     }
+
+    if (auth && auth.toLowerCase().startsWith('bearer ')) {
+      token = auth.substring(7)
+    }
+
+    const currentUser = await getUserFromToken(token)
+
+    return { currentUser }
   }
 })
 
