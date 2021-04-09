@@ -166,6 +166,7 @@ const server = new ApolloServer({
   }
 })
 
-server.listen().then(({ url }) => {
+server.listen().then(({ url, subscriptionsUrl }) => {
   console.log(`Server listening at ${url}`)
+  console.log(`Server listening for subscriptions at ${subscriptionsUrl}`)
 })
