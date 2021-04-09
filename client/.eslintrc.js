@@ -25,7 +25,8 @@ module.exports = {
     semi: ['error', 'never']
   },
   globals: {
-    SERVER_URL: false
+    SERVER_URL: false,
+    SERVER_SUBSCRIPTION_URL: false
   },
   settings: {
     jest: {
