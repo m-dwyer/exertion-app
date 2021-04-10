@@ -8,6 +8,7 @@ const bcrypt = require('bcrypt')
 
 const User = require('./models/User')
 const Activity = require('./models/Activity')
+const ActivityType = require('./models/ActivityType')
 
 const resolvers = {
   Mutation: {
@@ -53,8 +54,10 @@ const resolvers = {
       // TODO: move this into middleware
       if (!currentUser) throw new AuthenticationError('Not authenticated!')
 
+      const activityType = await ActivityType.findOne({ name: args.type })
       const activity = new Activity({
-        type: args.type,
+        type: activityType.id,
+        comment: args.comment,
         duration: args.duration,
         user: currentUser.id
       })
@@ -67,8 +70,9 @@ const resolvers = {
         })
       }
 
-      const newActivity = await Activity.findById(activity.id).populate('user')
-      pubsub.publish('ACTIVITY_CREATED', { activityAdded: newActivity })
+      await Activity.populate(activity, [{ path: 'user' }, { path: 'type' }])
+
+      pubsub.publish('ACTIVITY_CREATED', { activityAdded: activity })
 
       return activity
     }
@@ -76,9 +80,17 @@ const resolvers = {
 
   Query: {
     getActivities: async () => {
-      const activities = await Activity.find({}).populate('user')
+      const activities = await Activity.find({})
+        .populate('user')
+        .populate('type')
 
       return activities
+    },
+
+    getActivityTypes: async () => {
+      const activityTypes = await ActivityType.find({})
+
+      return activityTypes
     }
   },
 

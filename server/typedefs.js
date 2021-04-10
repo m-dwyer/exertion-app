@@ -11,11 +11,17 @@ const typeDefs = gql`
     value: String!
   }
 
+  type ActivityType {
+    id: ID!
+    name: String!
+  }
+
   type Activity {
     id: ID!
     user: User!
-    type: String!
+    type: ActivityType!
     duration: Int!
+    comment: String
   }
 
   type Mutation {
@@ -23,13 +29,15 @@ const typeDefs = gql`
 
     loginUser(username: String!, password: String!): Token
 
-    createActivity(type: String!, duration: Int!): Activity
+    createActivity(type: String!, duration: Int!, comment: String): Activity
   }
 
   type Query {
     me: User
 
     getActivities: [Activity]!
+
+    getActivityTypes: [ActivityType]!
   }
 
   type Subscription {

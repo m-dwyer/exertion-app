@@ -2,20 +2,25 @@ import React, { useState, useEffect, useContext } from 'react'
 import { css } from '@emotion/react'
 
 import Form from './Form'
+import Select from './Select'
 import TextField from './TextField'
 import Button from './Button'
 import { ERROR } from './Notification'
 
-import { useMutation } from '@apollo/client'
-import { CREATE_ACTIVITY_MUTATION } from '../queries'
+import { useMutation, useQuery } from '@apollo/client'
+import { CREATE_ACTIVITY_MUTATION, GET_ACTIVITY_TYPES } from '../queries'
 import { setNotification } from '../reducer'
 import { store } from '../store'
 
 const ActivityForm = () => {
-  const [type, setType] = useState(null)
+  const [selectedType, setSelectedType] = useState(null)
+  const [types, setTypes] = useState([])
   const [duration, setDuration] = useState(null)
+  const [comment, setComment] = useState(null)
 
   const { dispatch } = useContext(store)
+
+  const { data: activityTypesData } = useQuery(GET_ACTIVITY_TYPES)
 
   const [createActivity, result] = useMutation(CREATE_ACTIVITY_MUTATION, {
     onError: (error) => {
@@ -24,16 +29,26 @@ const ActivityForm = () => {
   })
 
   useEffect(() => {
-    if (result.data) {
-      // Update apollo client InMemoryCache
+    if (activityTypesData) {
+      setTypes(activityTypesData.getActivityTypes)
     }
-  }, [result.data])
+  }, [activityTypesData])
 
   const handleCreate = (event) => {
     event.preventDefault()
 
-    createActivity({ variables: { type, duration: parseInt(duration) } })
+    createActivity({
+      variables: { type: selectedType, duration: parseInt(duration), comment }
+    })
   }
+
+  const typeValueList = types.reduce(
+    (accum, t) => ({
+      ...accum,
+      [t.name]: t.name
+    }),
+    {}
+  )
 
   return (
     <Form onSubmit={handleCreate}>
@@ -43,10 +58,15 @@ const ActivityForm = () => {
           justify-content: flex-end;
         `}
       >
+        <Select
+          name="activityComment"
+          valueList={typeValueList}
+          onChange={({ target }) => setSelectedType(target.value)}
+        />
         <TextField
-          name="activityType"
-          placeholder="Activity Type"
-          onChange={({ target }) => setType(target.value)}
+          name="activityComment"
+          placeholder="Activity comment?"
+          onChange={({ target }) => setComment(target.value)}
           css={css`
             display: inline;
             margin-right: 1em;

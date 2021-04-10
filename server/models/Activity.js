@@ -7,9 +7,8 @@ const schema = new mongoose.Schema({
     ref: 'User'
   },
   type: {
-    type: mongoose.Schema.Types.String,
-    required: true,
-    minlength: 4
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'ActivityType'
   },
   duration: {
     type: mongoose.Schema.Types.Number,
@@ -18,6 +17,9 @@ const schema = new mongoose.Schema({
   time: {
     type: mongoose.Schema.Types.Date,
     default: Date.now()
+  },
+  comment: {
+    type: mongoose.Schema.Types.String
   }
 })
 

@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react'
 import { css } from '@emotion/react'
 
 import Container from './layout/Container'
+import Activity from './Activity'
 import { ERROR } from './Notification'
 
 import { store } from '../store'
@@ -55,16 +56,7 @@ const WallActivities = () => {
       >
         {data.getActivities.map((a) => (
           <li key={a.id}>
-            <div>
-              <span
-                css={css`
-                  font-weight: bold;
-                `}
-              >
-                {a.user.username}
-              </span>{' '}
-              completed {a.duration} minutes of {a.type}
-            </div>
+            <Activity activity={a} />
           </li>
         ))}
       </ul>
