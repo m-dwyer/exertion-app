@@ -1,9 +1,11 @@
 import React, { useContext, useEffect } from 'react'
-import { css } from '@emotion/react'
 import PropTypes from 'prop-types'
-import { store } from '../store'
-import { unsetNotification } from '../reducer'
+import { css } from '@emotion/react'
+
 import CloseButton from '../assets/closemenu.svg'
+
+import { unsetNotification } from '../reducer'
+import { store } from '../store'
 
 export const ERROR = 'ERROR'
 export const INFO = 'INFO'

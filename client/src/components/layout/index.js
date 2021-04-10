@@ -4,9 +4,9 @@ import { css, Global } from '@emotion/react'
 import { Link } from 'react-router-dom'
 
 import Nav from './Nav'
+
 import { store } from '../../store'
 
-// eslint-disable-next-line no-unused-vars
 const Layout = ({ children }) => {
   const { state } = useContext(store)
   const { theme, token } = state
@@ -33,8 +33,11 @@ const Layout = ({ children }) => {
 
           body {
             background-color: ${theme.colors.background1};
-            font-family: 'Montserrat', sans-serif;
             color: ${theme.colors.foreground1};
+          }
+
+          * {
+            font-family: 'Montserrat', sans-serif;
           }
 
           section {
@@ -66,14 +69,15 @@ const Layout = ({ children }) => {
           )}
         </Nav>
       </header>
-      <main>
-        <div
-          css={css`
-            margin: 0 auto;
-          `}
-        >
-          {children}
-        </div>
+      <main
+        css={css`
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+        `}
+      >
+        {children}
       </main>
       <footer></footer>
     </>

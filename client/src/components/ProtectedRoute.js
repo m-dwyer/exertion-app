@@ -1,6 +1,6 @@
 import React from 'react'
-import { Redirect, Route } from 'react-router'
 import PropTypes from 'prop-types'
+import { Redirect, Route } from 'react-router'
 
 export const PRIVATE = 'PRIVATE'
 export const RESTRICTED = 'RESTRICTED'

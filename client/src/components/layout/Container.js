@@ -2,17 +2,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { css } from '@emotion/react'
 
-const Container = ({ children }) => {
+const Container = ({ children, ...props }) => {
   return (
     <div
       css={css`
-        margin: 1em auto;
-        max-width: 400px;
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
+        width: 100%;
+        padding: 1.5em 1em;
       `}
+      {...props}
     >
       {children}
     </div>

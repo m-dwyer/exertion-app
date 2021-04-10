@@ -1,7 +1,8 @@
 import React, { useEffect, useContext } from 'react'
 import { Redirect } from 'react-router-dom'
-import { store } from '../store'
+
 import { unsetToken } from '../reducer'
+import { store } from '../store'
 
 const Logout = () => {
   const { dispatch } = useContext(store)

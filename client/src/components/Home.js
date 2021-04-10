@@ -1,11 +1,9 @@
 import React from 'react'
 
+import Wall from './Wall'
+
 const Home = () => {
-  return (
-    <>
-      <div>Homepage</div>
-    </>
-  )
+  return <Wall />
 }
 
 export default Home
