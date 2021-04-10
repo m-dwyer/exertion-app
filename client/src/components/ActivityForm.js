@@ -64,6 +64,9 @@ const ActivityForm = () => {
           optionsList={typeOptionsList}
           value={selectedType}
           onChange={({ target }) => setSelectedType(target.value)}
+          css={css`
+            width: 100%;
+          `}
         />
         <TextField
           name="activityComment"

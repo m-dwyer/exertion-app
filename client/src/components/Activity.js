@@ -4,16 +4,31 @@ import { css } from '@emotion/react'
 
 const Activity = ({ activity }) => {
   return (
-    <div>
-      <span
+    <div
+      css={css`
+        font-size: 1.5em;
+        margin-bottom: 2em;
+      `}
+    >
+      <div>
+        <span
+          css={css`
+            font-weight: bold;
+          `}
+        >
+          {activity.user.username}
+        </span>{' '}
+        <span>
+          completed {activity.duration} minutes of {activity.type.name}
+        </span>
+      </div>
+      <div
         css={css`
-          font-weight: bold;
+          font-style: italic;
         `}
       >
-        {activity.user.username}
-      </span>{' '}
-      completed {activity.duration} minutes of {activity.type.name}-{' '}
-      {activity.comment}
+        {activity.comment}
+      </div>
     </div>
   )
 }

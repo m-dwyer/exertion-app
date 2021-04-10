@@ -33,8 +33,11 @@ const Layout = ({ children }) => {
 
           body {
             background-color: ${theme.colors.background1};
-            font-family: 'Montserrat', sans-serif;
             color: ${theme.colors.foreground1};
+          }
+
+          * {
+            font-family: 'Montserrat', sans-serif;
           }
 
           section {

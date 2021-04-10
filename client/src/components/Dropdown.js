@@ -11,8 +11,8 @@ const Dropdown = ({ optionsList = {}, ...props }) => {
   return (
     <select
       css={css`
-        min-width: 100px;
         background: ${theme.colors.background2};
+        color: ${theme.colors.foreground1};
       `}
       {...props}
     >
