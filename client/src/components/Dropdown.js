@@ -4,7 +4,7 @@ import { css } from '@emotion/react'
 
 import { store } from '../store'
 
-const Select = ({ valueList = [], ...props }) => {
+const Dropdown = ({ optionsList = {}, ...props }) => {
   const { state } = useContext(store)
   const { theme } = state
 
@@ -16,7 +16,7 @@ const Select = ({ valueList = [], ...props }) => {
       `}
       {...props}
     >
-      {Object.entries(valueList).map(([value, label]) => (
+      {Object.entries(optionsList).map(([value, label]) => (
         <option value={value} key={value}>
           {label}
         </option>
@@ -25,8 +25,8 @@ const Select = ({ valueList = [], ...props }) => {
   )
 }
 
-Select.propTypes = {
-  valueList: PropTypes.object
+Dropdown.propTypes = {
+  optionsList: PropTypes.object
 }
 
-export default Select
+export default Dropdown

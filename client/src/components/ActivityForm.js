@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react'
 import { css } from '@emotion/react'
 
 import Form from './Form'
-import Select from './Select'
+import Dropdown from './Dropdown'
 import TextField from './TextField'
 import Button from './Button'
 import { ERROR } from './Notification'
@@ -13,8 +13,8 @@ import { setNotification } from '../reducer'
 import { store } from '../store'
 
 const ActivityForm = () => {
-  const [selectedType, setSelectedType] = useState(null)
   const [types, setTypes] = useState([])
+  const [selectedType, setSelectedType] = useState('')
   const [duration, setDuration] = useState(null)
   const [comment, setComment] = useState(null)
 
@@ -31,6 +31,7 @@ const ActivityForm = () => {
   useEffect(() => {
     if (activityTypesData) {
       setTypes(activityTypesData.getActivityTypes)
+      setSelectedType(activityTypesData.getActivityTypes[0].name)
     }
   }, [activityTypesData])
 
@@ -42,7 +43,7 @@ const ActivityForm = () => {
     })
   }
 
-  const typeValueList = types.reduce(
+  const typeOptionsList = types.reduce(
     (accum, t) => ({
       ...accum,
       [t.name]: t.name
@@ -58,9 +59,10 @@ const ActivityForm = () => {
           justify-content: flex-end;
         `}
       >
-        <Select
-          name="activityComment"
-          valueList={typeValueList}
+        <Dropdown
+          name="activityType"
+          optionsList={typeOptionsList}
+          value={selectedType}
           onChange={({ target }) => setSelectedType(target.value)}
         />
         <TextField
