@@ -51,8 +51,6 @@ const resolvers = {
 
     createActivity: async (root, args, context) => {
       const { currentUser } = context
-      // TODO: move this into middleware
-      if (!currentUser) throw new AuthenticationError('Not authenticated!')
 
       const activityType = await ActivityType.findOne({ name: args.type })
       const activity = new Activity({
@@ -96,9 +94,7 @@ const resolvers = {
 
   Subscription: {
     activityAdded: {
-      subscribe: (root, args, context) => {
-        const { currentUser } = context
-        if (!currentUser) throw new AuthenticationError('Not authenticated!')
+      subscribe: (root, args) => {
         return pubsub.asyncIterator(['ACTIVITY_CREATED'])
       }
     }
