@@ -1,4 +1,5 @@
-const { ApolloServer } = require('apollo-server')
+const { ApolloServer, makeExecutableSchema } = require('apollo-server')
+const { applyMiddleware } = require('graphql-middleware')
 
 const logger = require('./logger')
 require('dotenv').config()
@@ -8,10 +9,15 @@ const { getUserFromToken } = require('./auth')
 
 const typeDefs = require('./typedefs')
 const resolvers = require('./resolvers')
+const permissions = require('./permissions')
+
+const schema = makeExecutableSchema({
+  typeDefs,
+  resolvers
+})
 
 const server = new ApolloServer({
-  typeDefs,
-  resolvers,
+  schema: applyMiddleware(schema, permissions),
   subscriptions: {
     path: '/subscriptions'
   },
