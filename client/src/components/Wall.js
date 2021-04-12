@@ -14,10 +14,7 @@ const Wall = () => {
   return (
     <Container
       css={css`
-        background: ${theme.colors.background3};
-        border-radius: 0.5em;
         margin: 2em 2em;
-        height: 100%;
         display: flex;
         flex-direction: column;
 
@@ -29,7 +26,7 @@ const Wall = () => {
       <Container
         css={css`
           background: ${theme.colors.background2};
-          border-radius: 1em;
+          border-radius: 0.5em;
         `}
       >
         <div
@@ -43,16 +40,7 @@ const Wall = () => {
         </div>
         <ActivityForm />
       </Container>
-      <Container
-        css={css`
-          background: ${theme.colors.background2};
-          // background: yellow;
-          height: 100%;
-          border-radius: 1em;
-        `}
-      >
-        <WallActivities />
-      </Container>
+      <WallActivities />
     </Container>
   )
 }

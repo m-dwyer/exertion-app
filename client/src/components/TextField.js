@@ -19,6 +19,11 @@ const TextField = (props) => {
         ::placeholder {
           color: ${theme.colors.foreground1};
         }
+
+        :focus {
+          border: 3px solid ${theme.colors.foreground1};
+          background-color: ${theme.colors.background3};
+        }
       `}
       {...props}
     />

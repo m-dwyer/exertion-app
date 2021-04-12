@@ -13,6 +13,11 @@ const Dropdown = ({ optionsList = {}, ...props }) => {
       css={css`
         background: ${theme.colors.background2};
         color: ${theme.colors.foreground1};
+
+        :focus {
+          border: 3px solid ${theme.colors.foreground1};
+          background-color: ${theme.colors.background3};
+        }
       `}
       {...props}
     >

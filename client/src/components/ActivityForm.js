@@ -56,7 +56,26 @@ const ActivityForm = () => {
       <div
         css={css`
           display: flex;
-          justify-content: flex-end;
+          flex-direction: column;
+          align-items: stretch;
+          justify-content: space-between;
+
+          > * + * {
+            margin-top: 0.5em;
+          }
+
+          @media (min-width: 600px) {
+            flex-direction: row;
+
+            > * + * {
+              margin-top: 0;
+              margin-left: 0.5em;
+            }
+
+            button[type='submit'] {
+              max-width: 60px;
+            }
+          }
         `}
       >
         <Dropdown
@@ -65,7 +84,7 @@ const ActivityForm = () => {
           value={selectedType}
           onChange={({ target }) => setSelectedType(target.value)}
           css={css`
-            width: 100%;
+            flex: 1 1 auto;
           `}
         />
         <TextField
@@ -73,9 +92,7 @@ const ActivityForm = () => {
           placeholder="Activity comment?"
           onChange={({ target }) => setComment(target.value)}
           css={css`
-            display: inline;
-            margin-right: 1em;
-            width: 100%;
+            flex: 2 2 auto;
           `}
         />
         <TextField
@@ -85,15 +102,13 @@ const ActivityForm = () => {
           type="text"
           onChange={({ target }) => setDuration(target.value)}
           css={css`
-            display: inline;
-            width: 8em;
+            flex: 1 1 auto;
           `}
         />
         <Button
           type="submit"
           css={css`
-            display: inline;
-            margin-left: 0.5em;
+            flex: 1 1 auto;
           `}
         >
           +

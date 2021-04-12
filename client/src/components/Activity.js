@@ -1,33 +1,53 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 import { css } from '@emotion/react'
+import PersonCircle from '../assets/person-circle-outline.svg'
+
+import { store } from '../store'
 
 const Activity = ({ activity }) => {
+  const { state } = useContext(store)
+  const { theme } = state
+
   return (
     <div
       css={css`
         font-size: 1.5em;
-        margin-bottom: 2em;
+        display: flex;
+        align-items: center;
       `}
     >
+      <PersonCircle
+        css={css`
+          width: 100px;
+          fill: ${theme.colors.foreground1};
+          margin-right: 0.5em;
+        `}
+      />
       <div>
-        <span
+        <div
           css={css`
-            font-weight: bold;
+            margin-bottom: 1em;
           `}
         >
-          {activity.user.username}
-        </span>{' '}
-        <span>
-          completed {activity.duration} minutes of {activity.type.name}
-        </span>
-      </div>
-      <div
-        css={css`
-          font-style: italic;
-        `}
-      >
-        {activity.comment}
+          <span
+            css={css`
+              font-weight: bold;
+            `}
+          >
+            {activity.user.username}
+          </span>{' '}
+          <span>
+            completed {activity.duration} minutes of {activity.type.name}
+          </span>
+        </div>
+        <div
+          css={css`
+            font-style: italic;
+          `}
+        >
+          {activity.comment}
+        </div>
       </div>
     </div>
   )
