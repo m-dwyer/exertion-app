@@ -1,11 +1,12 @@
 import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
-import { css, Global } from '@emotion/react'
+import { css } from '@emotion/react'
 import { Link } from 'react-router-dom'
 
 import Nav from './Nav'
 
 import { store } from '../../store'
+import GlobalStyles from './GlobalStyles'
 
 const Layout = ({ children }) => {
   const { state } = useContext(store)
@@ -13,44 +14,7 @@ const Layout = ({ children }) => {
 
   return (
     <>
-      <Global
-        styles={css`
-          @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
-
-          * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-          }
-
-          a {
-            text-decoration: none;
-          }
-
-          ul {
-            padding: 0;
-          }
-
-          body {
-            background-color: ${theme.colors.background1};
-            color: ${theme.colors.foreground1};
-          }
-
-          * {
-            font-family: 'Montserrat', sans-serif;
-          }
-
-          section {
-            margin: 0 auto;
-            width: 100%;
-            height: 100vh;
-            padding: 5em;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-          }
-        `}
-      />
+      <GlobalStyles />
       <header>
         <Nav
           css={css`
