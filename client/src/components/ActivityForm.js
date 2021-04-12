@@ -97,6 +97,7 @@ const ActivityForm = () => {
           css={css`
             display: inline;
             margin-left: 0.5em;
+            width: 80px;
           `}
         >
           +

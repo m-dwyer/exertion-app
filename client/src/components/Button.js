@@ -12,7 +12,6 @@ const Button = ({ children, ...props }) => {
     <button
       css={css`
         background-color: ${theme.colors.foreground2};
-        // border-radius: 5em;
         border: 2px solid ${theme.colors.highlight};
         color: white;
         font-weight: bold;
@@ -20,6 +19,11 @@ const Button = ({ children, ...props }) => {
         padding: 0.5em 0.5em;
         display: block;
         max-width: 400px;
+
+        :hover {
+          background-color: ${theme.colors.foreground3};
+          border-color: ${theme.colors.foreground1};
+        }
       `}
       {...props}
     >
