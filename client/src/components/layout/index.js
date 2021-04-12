@@ -27,6 +27,7 @@ const Layout = ({ children }) => {
             top: 0;
             left: 0;
             width: 100%;
+            border-bottom: 1px solid ${theme.colors.foreground1};
           `}
         >
           <Nav
