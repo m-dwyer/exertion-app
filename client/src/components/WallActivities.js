@@ -43,24 +43,29 @@ const WallActivities = () => {
   }
 
   return (
-    <Container
-      css={css`
-        overflow-y: scroll;
-        height: 100%;
-      `}
-    >
+    <div>
       <ul
         css={css`
           list-style-type: none;
+          > li + li {
+            margin-top: 1.5em;
+          }
         `}
       >
         {data.getActivities.map((a) => (
-          <li key={a.id}>
+          <li
+            key={a.id}
+            css={css`
+              border: 1px solid white;
+              border-radius: 0.5em;
+              padding: 1em;
+            `}
+          >
             <Activity activity={a} />
           </li>
         ))}
       </ul>
-    </Container>
+    </div>
   )
 }
 

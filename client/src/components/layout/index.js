@@ -15,35 +15,49 @@ const Layout = ({ children }) => {
   return (
     <>
       <GlobalStyles />
-      <header>
-        <Nav
-          css={css`
-            & a {
-              color: ${theme.colors.foreground1};
-            }
-          `}
-        >
-          {token ? (
-            <Link to="/logout">Logout</Link>
-          ) : (
-            <>
-              <Link to="/login">Login</Link>
-              <Link to="/signup">Signup</Link>
-            </>
-          )}
-        </Nav>
-      </header>
-      <main
+      <div
         css={css`
           display: flex;
-          justify-content: center;
-          align-items: center;
-          height: 100vh;
+          flex-direction: column;
         `}
       >
-        {children}
-      </main>
-      <footer></footer>
+        <header
+          css={css`
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+          `}
+        >
+          <Nav
+            css={css`
+              & a {
+                color: ${theme.colors.foreground1};
+              }
+            `}
+          >
+            {token ? (
+              <Link to="/logout">Logout</Link>
+            ) : (
+              <>
+                <Link to="/login">Login</Link>
+                <Link to="/signup">Signup</Link>
+              </>
+            )}
+          </Nav>
+        </header>
+        <main
+          css={css`
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-top: 2.5em;
+          `}
+        >
+          {children}
+        </main>
+        <footer></footer>
+      </div>
     </>
   )
 }

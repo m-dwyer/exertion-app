@@ -56,7 +56,10 @@ const ActivityForm = () => {
       <div
         css={css`
           display: flex;
-          justify-content: flex-end;
+          justify-content: space-between;
+          > * + * {
+            margin-left: 2em;
+          }
         `}
       >
         <Dropdown
@@ -65,7 +68,7 @@ const ActivityForm = () => {
           value={selectedType}
           onChange={({ target }) => setSelectedType(target.value)}
           css={css`
-            width: 100%;
+            width: 30em;
           `}
         />
         <TextField
@@ -86,7 +89,7 @@ const ActivityForm = () => {
           onChange={({ target }) => setDuration(target.value)}
           css={css`
             display: inline;
-            width: 8em;
+            width: 10em;
           `}
         />
         <Button
