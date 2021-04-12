@@ -18,7 +18,6 @@ const Button = ({ children, ...props }) => {
         font-size: 1.2em;
         padding: 0.5em 0.5em;
         display: block;
-        max-width: 400px;
 
         :hover {
           background-color: ${theme.colors.foreground3};

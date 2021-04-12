@@ -56,9 +56,20 @@ const ActivityForm = () => {
       <div
         css={css`
           display: flex;
+          flex-direction: column;
+          align-items: stretch;
           justify-content: space-between;
-          > * + * {
-            margin-left: 2em;
+
+          @media (min-width: 600px) {
+            flex-direction: row;
+
+            > * + * {
+              margin-left: 0.5em;
+            }
+
+            button[type='submit'] {
+              max-width: 60px;
+            }
           }
         `}
       >
@@ -68,7 +79,7 @@ const ActivityForm = () => {
           value={selectedType}
           onChange={({ target }) => setSelectedType(target.value)}
           css={css`
-            width: 30em;
+            flex: 1 1 auto;
           `}
         />
         <TextField
@@ -76,9 +87,7 @@ const ActivityForm = () => {
           placeholder="Activity comment?"
           onChange={({ target }) => setComment(target.value)}
           css={css`
-            display: inline;
-            margin-right: 1em;
-            width: 100%;
+            flex: 2 2 auto;
           `}
         />
         <TextField
@@ -88,16 +97,13 @@ const ActivityForm = () => {
           type="text"
           onChange={({ target }) => setDuration(target.value)}
           css={css`
-            display: inline;
-            width: 10em;
+            flex: 1 1 auto;
           `}
         />
         <Button
           type="submit"
           css={css`
-            display: inline;
-            margin-left: 0.5em;
-            width: 80px;
+            flex: 1 1 auto;
           `}
         >
           +
