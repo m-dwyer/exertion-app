@@ -60,10 +60,15 @@ const ActivityForm = () => {
           align-items: stretch;
           justify-content: space-between;
 
+          > * + * {
+            margin-top: 0.5em;
+          }
+
           @media (min-width: 600px) {
             flex-direction: row;
 
             > * + * {
+              margin-top: 0;
               margin-left: 0.5em;
             }
 
