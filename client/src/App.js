@@ -28,12 +28,6 @@ const App = () => {
     }
   }, [])
 
-  useEffect(() => {
-    if (token) {
-      localStorage.setItem('usertoken', token)
-    }
-  }, [token])
-
   const isAuthenticated = token ? true : false
 
   return (

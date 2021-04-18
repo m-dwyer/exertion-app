@@ -30,6 +30,7 @@ const LoginForm = () => {
     if (data) {
       const token = data.loginUser.value
       dispatch(setToken(token))
+      localStorage.setItem('usertoken', token)
       history.push('/')
     }
   }, [data])
