@@ -8,15 +8,8 @@ const config = {
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, './dist'),
-    filename: 'main.bundle.js'
+    filename: '[name].bundle.js'
   },
-  devServer: {
-    contentBase: path.resolve(__dirname, 'build'),
-    compress: true,
-    port: 3000,
-    historyApiFallback: true
-  },
-  devtool: 'source-map',
   module: {
     rules: [
       {
