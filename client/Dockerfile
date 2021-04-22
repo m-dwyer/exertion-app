@@ -6,7 +6,7 @@ COPY . .
 RUN npm run build
 
 FROM nginx:1.19.10-alpine AS web
-ENV GRAPHQL_BACKEND=http://localhost:4000/graphql
+ENV GRAPHQL_BACKEND=http://localhost:4000/graphql SUBSCRIPTIONS_BACKEND=http://localhost:4000/subscriptions
 WORKDIR /usr/share/nginx/html
 COPY --from=build /build/dist .
 COPY --from=build /build/default.conf.template /etc/nginx/templates/default.conf.template

@@ -5,6 +5,7 @@ services:
       - "3000:80"
     environment:
       GRAPHQL_BACKEND: http://apollo:4000/
+      SUBSCRIPTION_BACKEND: http://apollo:4000/subscriptions
     links:
         - apollo
   apollo:

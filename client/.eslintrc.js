@@ -24,10 +24,7 @@ module.exports = {
     quotes: ['error', 'single'],
     semi: ['error', 'never']
   },
-  globals: {
-    SERVER_URL: false,
-    SERVER_SUBSCRIPTION_URL: false
-  },
+  globals: {},
   settings: {
     jest: {
       version: 'latest'

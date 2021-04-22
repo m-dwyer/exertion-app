@@ -30,7 +30,7 @@ const authLink = setContext((_, { headers }) => {
 const httpLink = new HttpLink({ uri: '/graphql' })
 
 const wsLink = new WebSocketLink({
-  uri: SERVER_SUBSCRIPTION_URL,
+  uri: `ws://${location.host}/subscriptions`,
   options: {
     reconnect: true,
     connectionParams: () => {
