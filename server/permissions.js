@@ -14,9 +14,9 @@ const permissions = shield({
     '*': isAuthenticated
   },
   Mutation: {
-    '*': isAuthenticated,
     createUser: allow,
-    loginUser: allow
+    loginUser: allow,
+    '*': isAuthenticated
   },
   Subscription: {
     '*': isAuthenticated

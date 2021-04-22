@@ -1,0 +1,33 @@
+services:
+  web:
+    build: ./client
+    ports:
+      - "3000:80"
+    environment:
+      GRAPHQL_BACKEND: http://apollo:4000/
+    links:
+        - apollo
+  apollo:
+    build:
+      context: ./server
+      target: dev
+    volumes:
+      - ./server:/app
+    environment:
+      MONGODB_URI: mongodb://exertion:exertion@mongo/exertion?retryWrites=true
+      JWT_SECRET: ssshhh
+
+  mongo:
+    image: mongo:4.4.5-bionic
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_DATABASE: admin
+    volumes:
+      - mongodb-volume:/data/db
+      - ./server/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+
+volumes:
+  mongodb-volume: {}
