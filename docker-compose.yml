@@ -1,6 +1,8 @@
 services:
   web:
-    build: ./client
+    build:
+      context: ./client
+      target: web-prod
     ports:
       - "3000:80"
     environment:
@@ -11,7 +13,7 @@ services:
   apollo:
     build:
       context: ./server
-      target: dev
+      target: backend-prod
     volumes:
       - ./server:/app
     environment:
