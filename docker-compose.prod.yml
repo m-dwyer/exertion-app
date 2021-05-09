@@ -1,0 +1,30 @@
+services:
+  web:
+    container_name: exertion-app_web-prod
+    build:
+      target: web-prod
+    ports:
+      - "80:80"
+    environment:
+      GRAPHQL_BACKEND: http://apollo:4000/
+      SUBSCRIPTION_BACKEND: http://apollo:4000/subscriptions
+    links:
+        - apollo
+  apollo:
+    container_name: exertion-app_apollo-prod
+    build:
+      target: backend-prod
+    environment:
+      MONGODB_URI: mongodb://exertion:exertion@mongo/exertion?retryWrites=true
+      JWT_SECRET: ssshhh
+  mongo:
+    container_name: exertion-app_mongo-prod
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_DATABASE: admin
+    volumes:
+      - mongodb-volume:/data/db
+      - ./server/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+volumes:
+    mongodb-volume: {}
