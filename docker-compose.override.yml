@@ -1,0 +1,46 @@
+services:
+  nginx:
+    image: exertion-app_nginx-dev
+    build:
+      context: ./client
+      target: nginx-dev
+    environment:
+      WEBPACK_SERVER: http://web:3000/
+      GRAPHQL_BACKEND: http://apollo:4000/
+      SUBSCRIPTION_BACKEND: http://apollo:4000/subscriptions
+    ports:
+      - "3000:80"
+    links:
+      - web
+  web:
+    image: exertion-app_web-dev
+    build:
+      target: web-dev
+    environment:
+      GRAPHQL_BACKEND: http://apollo:4000/
+      SUBSCRIPTION_BACKEND: http://apollo:4000/subscriptions
+    volumes:
+      - ./client:/build
+    links:
+        - apollo
+  apollo:
+    image: exertion-app_apollo-dev
+    build:
+      target: backend-dev
+    environment:
+      MONGODB_URI: mongodb://${MONGODB_USER}:${MONGODB_PASS}@mongo/exertion?retryWrites=true
+      JWT_SECRET: ${JWT_SECRET}
+    volumes:
+      - ./server:/app
+  mongo:
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
+    volumes:
+      - mongodb-volume:/data/db
+      - ./server/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+    ports:
+      - 27017:27017
+volumes:
+  mongodb-volume: {}

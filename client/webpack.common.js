@@ -8,15 +8,8 @@ const config = {
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, './dist'),
-    filename: 'main.bundle.js'
+    filename: '[name].bundle.js'
   },
-  devServer: {
-    contentBase: path.resolve(__dirname, 'build'),
-    compress: true,
-    port: 3000,
-    historyApiFallback: true
-  },
-  devtool: 'source-map',
   module: {
     rules: [
       {
@@ -39,12 +32,7 @@ const config = {
     ]
   },
   plugins: [
-    new webpack.DefinePlugin({
-      SERVER_URL: JSON.stringify(process.env.SERVER_URL),
-      SERVER_SUBSCRIPTION_URL: JSON.stringify(
-        process.env.SERVER_SUBSCRIPTION_URL
-      )
-    }),
+    new webpack.DefinePlugin({}),
     new HtmlWebpackPlugin({
       template: __dirname + '/public/index.html'
     })
