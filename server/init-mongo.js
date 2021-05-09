@@ -2,7 +2,7 @@ db = db.getSiblingDB('exertion')
 
 db.createUser({
   user: 'exertion',
-  pwd: 'exertion',
+  pwd: 'mysecretpass',
   roles: [{ role: 'readWrite', db: 'exertion' }]
 })
 

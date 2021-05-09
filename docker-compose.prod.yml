@@ -1,8 +1,9 @@
 services:
   web:
-    container_name: exertion-app_web-prod
+    image: exertion-app_web-prod
     build:
       target: web-prod
+    image: web-prod
     ports:
       - "80:80"
     environment:
@@ -11,18 +12,18 @@ services:
     links:
         - apollo
   apollo:
-    container_name: exertion-app_apollo-prod
+    image: exertion-app_apollo-prod
     build:
       target: backend-prod
+    image: backend-prod
     environment:
-      MONGODB_URI: mongodb://exertion:exertion@mongo/exertion?retryWrites=true
-      JWT_SECRET: ssshhh
+      MONGODB_URI: mongodb://${MONGODB_USER}:${MONGODB_PASS}@mongo/exertion?retryWrites=true
+      JWT_SECRET: ${JWT_SECRET}
   mongo:
-    container_name: exertion-app_mongo-prod
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
-      MONGO_INITDB_DATABASE: admin
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
     volumes:
       - mongodb-volume:/data/db
       - ./server/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro

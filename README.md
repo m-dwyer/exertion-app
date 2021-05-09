@@ -20,16 +20,25 @@ docker-compose up mongo
 ```
 
 ## Docker usage - dev
-Dev environment is the default override, and exposes mongodb locall for debugging/troubleshooting
+Dev environment is the default override, and exposes the mongodb port on the host for debugging/troubleshooting.
+
+Copy sample .env file, and replace values accordingly:
 ```
-docker-compose build
+cp .env.sample .env
+```
+Then build/run:
+```
 docker-compose up
 ```
 
 ## Docker usage - production
-Production needs to be explicitly specified:
+Copy sample .env file, and replace values accordingly:
 ```
-docker-compose -f docker-compose.prod.yml -f docker-compose.yml build
+cp .env.sample .env
+```
+
+Then build/run - production needs to be explicitly specified:
+```
 docker-compose -f docker-compose.prod.yml -f docker-compose.yml up
 ```
 
